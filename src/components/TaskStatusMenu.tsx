@@ -9,7 +9,7 @@ import {
   useState,
 } from 'react';
 
-import type { Task } from './TasksList';
+import type { Task } from '../types/task';
 
 type TaskStatus = Task['status'];
 

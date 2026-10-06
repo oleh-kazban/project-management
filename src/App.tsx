@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Motivator from './components/Motivator';
 import ProjectDetails from './components/ProjectDetails';
 import TaskList from './components/TasksList';
+import type { Project } from './types/project';
 
 const motivationalQuotes = [
   'A little progress every day adds up.',
@@ -15,16 +16,6 @@ const motivationalQuotes = [
   'Success is the sum of small efforts repeated daily.',
   "Don't stop when you're tired. Stop when you're done.",
 ];
-
-export type Project = {
-  id: string;
-  title: string;
-  description: string;
-  createdAt?: string; // YYYY-MM-DD
-  updateddAt?: string; // YYYY-MM-DD
-  dueDate?: string; // YYYY-MM-DD
-  status: 'completed' | 'in-progress' | 'todo';
-};
 
 const projectDetailsData = {
   id: crypto.randomUUID(),

@@ -1,7 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react';
 
-import type { Task } from './TasksList';
 import TaskStatusMenu from './TaskStatusMenu';
+import type { Task } from '../types/task';
 import { formatDateOnly } from '../utils/date-formatter';
 
 type TaskDetailsProps = {

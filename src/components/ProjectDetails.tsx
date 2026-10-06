@@ -1,5 +1,5 @@
-import { Project } from '../App';
 import ProjectMetrics from './ProjectMetrics';
+import type { Project } from '../types/project';
 
 type projectProps = {
   project: Project;
