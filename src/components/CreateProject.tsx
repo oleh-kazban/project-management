@@ -1,3 +1,3 @@
-const CreateProject = () => {}
+const CreateProject = () => {};
 
 export default CreateProject;
