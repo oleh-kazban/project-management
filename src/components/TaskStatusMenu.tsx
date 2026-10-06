@@ -11,8 +11,10 @@ import { createPortal } from 'react-dom';
 import type { Task } from '../types/task';
 
 type TaskStatus = Task['status'];
+type MenuAlignment = 'start' | 'end';
 
 type TaskStatusMenuProps = {
+  alignment: MenuAlignment;
   status: TaskStatus;
   onStatusChange: (_status: TaskStatus) => void;
 };
@@ -49,7 +51,7 @@ type MenuPosition = {
   placement: 'top' | 'bottom';
 };
 
-const TaskStatusMenu = ({ status, onStatusChange }: TaskStatusMenuProps) => {
+const TaskStatusMenu = ({ alignment, status, onStatusChange }: TaskStatusMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
   const menuId = useId();
@@ -86,8 +88,10 @@ const TaskStatusMenu = ({ status, onStatusChange }: TaskStatusMenuProps) => {
         fitsBelow || (!fitsAbove && availableBelow >= availableAbove) ? 'bottom' : 'top';
       const maxHeight = placement === 'bottom' ? availableBelow : availableAbove;
       const renderedHeight = Math.min(menuHeight, maxHeight);
+      const preferredLeft =
+        alignment === 'start' ? triggerRect.left : triggerRect.right - menuRect.width;
       const left = Math.min(
-        Math.max(viewportPadding, triggerRect.right - menuRect.width),
+        Math.max(viewportPadding, preferredLeft),
         window.innerWidth - menuRect.width - viewportPadding,
       );
       const top =
@@ -106,7 +110,7 @@ const TaskStatusMenu = ({ status, onStatusChange }: TaskStatusMenuProps) => {
       window.removeEventListener('resize', updatePlacement);
       window.removeEventListener('scroll', updatePlacement, true);
     };
-  }, [isOpen, status]);
+  }, [alignment, isOpen, status]);
 
   useEffect(() => {
     if (!isOpen) {

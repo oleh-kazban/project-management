@@ -26,7 +26,7 @@ const TaskDetails = ({ task, onStatusChange, onTaskRemove }: TaskDetailsProps) =
         </span>
         <span className="mt-1 block text-xs text-foreground-faint">{date}</span>
       </div>
-      <TaskStatusMenu status={status} onStatusChange={onStatusChange} />
+      <TaskStatusMenu alignment="end" status={status} onStatusChange={onStatusChange} />
       <button
         type="button"
         onClick={() => onTaskRemove(task.id)}
