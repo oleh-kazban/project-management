@@ -1,3 +1,32 @@
+@layer base {
+  :root {
+    --color-canvas: 11 15 22;
+    --color-surface: 16 22 32;
+    --color-surface-raised: 17 24 35;
+    --color-surface-inset: 13 19 28;
+    --color-foreground: 241 245 249;
+    --color-foreground-secondary: 203 213 225;
+    --color-foreground-muted: 148 163 184;
+    --color-foreground-subtle: 100 116 139;
+    --color-foreground-faint: 71 85 105;
+    --color-border-default: 255 255 255;
+    --color-border-subtle: 255 255 255;
+    --color-border-strong: 255 255 255;
+    --color-accent: 103 232 249;
+    --color-accent-soft: 165 243 252;
+    --color-accent-strong: 34 211 238;
+    --color-accent-foreground: 7 16 22;
+    --color-success: 110 231 183;
+    --color-success-surface: 52 211 153;
+    --color-warning: 253 230 138;
+    --color-warning-surface: 251 191 36;
+    --color-danger: 253 164 175;
+    --color-danger-surface: 251 113 133;
+    --color-project-violet: 221 214 254;
+    --color-project-violet-surface: 167 139 250;
+  }
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

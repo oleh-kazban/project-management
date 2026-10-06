@@ -53,6 +53,14 @@ export default [
           allowConstantExport: true,
         },
       ],
+      'padding-line-between-statements': [
+        'error',
+        {
+          blankLine: 'always',
+          prev: '*',
+          next: 'export',
+        },
+      ],
       'import/order': [
         'error',
         {
@@ -83,7 +91,8 @@ export default [
     files: ['**/*.{js,ts,tsx}'],
     rules: {
       'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
-      'no-unused-vars': 'error',
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      'eol-last': ['error', 'always'],
     },
   },
 ];
