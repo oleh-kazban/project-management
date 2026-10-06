@@ -17,6 +17,7 @@ const CreateTask = ({ dueDate, onAddTask }: CreateTaskProps) => {
     onAddTask({
       id: crypto.randomUUID(),
       title,
+      createdAt: new Date().toISOString(),
       status: 'todo',
       dueDate,
     });

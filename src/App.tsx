@@ -4,6 +4,7 @@ import Motivator from './components/Motivator';
 import ProjectDetails from './components/ProjectDetails';
 import TaskList from './components/TasksList';
 import type { Project } from './types/project';
+import type { Task, TaskStatus } from './types/task';
 
 const motivationalQuotes = [
   'A little progress every day adds up.',
@@ -22,16 +23,68 @@ const projectDetailsData = {
   title: 'Learning React',
   description:
     'Learn React from the ground up. Start with the basics, finish with advanced knowledge, and put it all together in a project of your own.',
-  createdAt: '2026-02-25', // YYYY-MM-DD
+  createdAt: '2026-02-25T09:00:00.000Z',
+  updatedAt: '2026-10-06T16:18:00+03:00',
   dueDate: '2026-12-25', // YYYY-MM-DD
   status: 'in-progress',
 } satisfies Project;
+const tasksData = [
+  {
+    id: crypto.randomUUID(),
+    title: 'Learn the basics of JSX',
+    createdAt: '2026-10-04T09:00:00.000Z',
+    completedAt: '2026-10-06',
+    status: 'completed',
+  },
+  {
+    id: crypto.randomUUID(),
+    title: 'Build reusable components',
+    createdAt: '2026-10-05T09:00:00.000Z',
+    dueDate: '2026-11-06',
+    status: 'in-progress',
+  },
+  {
+    id: crypto.randomUUID(),
+    title: 'Practice managing component state',
+    createdAt: '2026-10-06T09:00:00.000Z',
+    dueDate: '2026-12-06',
+    status: 'todo',
+  },
+] satisfies Task[];
 
 function App() {
   const [motivationalQuote, setMotivationalQuote] = useState(motivationalQuotes[0]);
+  const [tasks, setTasks] = useState<Task[]>(tasksData);
+
   const updateMotivationalQuote = () => {
     const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
     setMotivationalQuote(motivationalQuotes[randomIndex]);
+  };
+  const handleTasksChange = () => {
+    updateMotivationalQuote();
+  };
+  const handleAddTask = (task: Task) => {
+    setTasks(previousTasks => [...previousTasks, task]);
+    handleTasksChange();
+  };
+  const handleRemoveTask = (taskId: Task['id']) => {
+    setTasks(previousTasks => previousTasks.filter(task => task.id !== taskId));
+    handleTasksChange();
+  };
+  const handleTaskStatusChange = (taskId: Task['id'], status: TaskStatus) => {
+    setTasks(currentTasks =>
+      currentTasks.map(task => {
+        if (task.id !== taskId) {
+          return task;
+        }
+
+        return {
+          ...task,
+          status,
+        };
+      }),
+    );
+    handleTasksChange();
   };
 
   return (
@@ -311,8 +364,13 @@ function App() {
               aria-labelledby="project-title"
               className="grid w-full overflow-hidden rounded-2xl border border-default/10 bg-surface-raised shadow-2xl shadow-canvas/10 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]"
             >
-              <ProjectDetails project={projectDetailsData} />
-              <TaskList onTasksChange={updateMotivationalQuote} />
+              <ProjectDetails project={projectDetailsData} tasks={tasks} />
+              <TaskList
+                tasks={tasks}
+                onAddTask={handleAddTask}
+                onRemoveTask={handleRemoveTask}
+                onTaskStatusChange={handleTaskStatusChange}
+              />
             </section>
 
             <Motivator phrase={motivationalQuote} />

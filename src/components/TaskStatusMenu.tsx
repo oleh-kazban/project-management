@@ -1,13 +1,12 @@
 import {
-  type Dispatch,
   type KeyboardEvent as ReactKeyboardEvent,
-  type SetStateAction,
   useEffect,
   useId,
   useLayoutEffect,
   useRef,
   useState,
 } from 'react';
+import { createPortal } from 'react-dom';
 
 import type { Task } from '../types/task';
 
@@ -15,7 +14,7 @@ type TaskStatus = Task['status'];
 
 type TaskStatusMenuProps = {
   status: TaskStatus;
-  onStatusChange: Dispatch<SetStateAction<TaskStatus>>;
+  onStatusChange: (_status: TaskStatus) => void;
 };
 
 const statusPresentation: Record<
@@ -41,10 +40,18 @@ const statusPresentation: Record<
 
 const statusOptions: TaskStatus[] = ['todo', 'in-progress', 'completed'];
 const menuGap = 8;
+const viewportPadding = 8;
+
+type MenuPosition = {
+  top: number;
+  left: number;
+  maxHeight: number;
+  placement: 'top' | 'bottom';
+};
 
 const TaskStatusMenu = ({ status, onStatusChange }: TaskStatusMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [menuPlacement, setMenuPlacement] = useState<'top' | 'bottom'>('bottom');
+  const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
   const menuId = useId();
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -66,10 +73,29 @@ const TaskStatusMenu = ({ status, onStatusChange }: TaskStatusMenuProps) => {
       }
 
       const triggerRect = trigger.getBoundingClientRect();
-      const menuHeight = menu.getBoundingClientRect().height;
-      const spaceBelow = window.innerHeight - triggerRect.bottom;
+      const menuRect = menu.getBoundingClientRect();
+      const menuHeight = menu.scrollHeight;
+      const availableAbove = Math.max(0, triggerRect.top - menuGap - viewportPadding);
+      const availableBelow = Math.max(
+        0,
+        window.innerHeight - triggerRect.bottom - menuGap - viewportPadding,
+      );
+      const fitsAbove = menuHeight <= availableAbove;
+      const fitsBelow = menuHeight <= availableBelow;
+      const placement =
+        fitsBelow || (!fitsAbove && availableBelow >= availableAbove) ? 'bottom' : 'top';
+      const maxHeight = placement === 'bottom' ? availableBelow : availableAbove;
+      const renderedHeight = Math.min(menuHeight, maxHeight);
+      const left = Math.min(
+        Math.max(viewportPadding, triggerRect.right - menuRect.width),
+        window.innerWidth - menuRect.width - viewportPadding,
+      );
+      const top =
+        placement === 'bottom'
+          ? triggerRect.bottom + menuGap
+          : triggerRect.top - menuGap - renderedHeight;
 
-      setMenuPlacement(spaceBelow >= menuHeight + menuGap ? 'bottom' : 'top');
+      setMenuPosition({ top, left, maxHeight, placement });
     };
 
     updatePlacement();
@@ -80,7 +106,7 @@ const TaskStatusMenu = ({ status, onStatusChange }: TaskStatusMenuProps) => {
       window.removeEventListener('resize', updatePlacement);
       window.removeEventListener('scroll', updatePlacement, true);
     };
-  }, [isOpen]);
+  }, [isOpen, status]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -88,7 +114,11 @@ const TaskStatusMenu = ({ status, onStatusChange }: TaskStatusMenuProps) => {
     }
 
     const handlePointerDown = (event: PointerEvent) => {
-      if (event.target instanceof Node && !containerRef.current?.contains(event.target)) {
+      if (
+        event.target instanceof Node &&
+        !containerRef.current?.contains(event.target) &&
+        !menuRef.current?.contains(event.target)
+      ) {
         setIsOpen(false);
       }
     };
@@ -148,44 +178,51 @@ const TaskStatusMenu = ({ status, onStatusChange }: TaskStatusMenuProps) => {
       >
         {currentPresentation.label}
       </button>
-      {isOpen && (
-        <div
-          ref={menuRef}
-          id={menuId}
-          role="menu"
-          aria-label="Change task status"
-          className={`absolute right-0 z-10 min-w-36 rounded-xl border border-default/10 bg-surface-raised p-1 shadow-xl shadow-canvas/20 ${
-            menuPlacement === 'bottom' ? 'top-full mt-2' : 'bottom-full mb-2'
-          }`}
-        >
-          {statusOptions.map((option, index) => {
-            const presentation = statusPresentation[option];
+      {isOpen &&
+        createPortal(
+          <div
+            ref={menuRef}
+            id={menuId}
+            role="menu"
+            aria-label="Change task status"
+            className="fixed z-50 min-w-36 overflow-y-auto rounded-xl border border-default/10 bg-surface-raised p-1 shadow-xl shadow-canvas/20"
+            style={{
+              top: menuPosition?.top ?? 0,
+              left: menuPosition?.left ?? 0,
+              ...(menuPosition ? { maxHeight: menuPosition.maxHeight } : {}),
+              visibility: menuPosition ? 'visible' : 'hidden',
+            }}
+            data-placement={menuPosition?.placement}
+          >
+            {statusOptions.map((option, index) => {
+              const presentation = statusPresentation[option];
 
-            return (
-              <button
-                key={option}
-                ref={element => {
-                  optionRefs.current[index] = element;
-                }}
-                type="button"
-                role="menuitemradio"
-                aria-checked={status === option}
-                onClick={() => selectStatus(option)}
-                onKeyDown={event => handleOptionKeyDown(event, index)}
-                className="flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2 text-left text-sm text-foreground-secondary transition hover:bg-foreground/5 hover:text-foreground"
-              >
-                {presentation.label}
-                {status === option && (
-                  <span
-                    aria-hidden="true"
-                    className={`h-2 w-2 rounded-full ${presentation.indicatorClassName}`}
-                  />
-                )}
-              </button>
-            );
-          })}
-        </div>
-      )}
+              return (
+                <button
+                  key={option}
+                  ref={element => {
+                    optionRefs.current[index] = element;
+                  }}
+                  type="button"
+                  role="menuitemradio"
+                  aria-checked={status === option}
+                  onClick={() => selectStatus(option)}
+                  onKeyDown={event => handleOptionKeyDown(event, index)}
+                  className="flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2 text-left text-sm text-foreground-secondary transition hover:bg-foreground/5 hover:text-foreground"
+                >
+                  {presentation.label}
+                  {status === option && (
+                    <span
+                      aria-hidden="true"
+                      className={`h-2 w-2 rounded-full ${presentation.indicatorClassName}`}
+                    />
+                  )}
+                </button>
+              );
+            })}
+          </div>,
+          document.body,
+        )}
     </div>
   );
 };

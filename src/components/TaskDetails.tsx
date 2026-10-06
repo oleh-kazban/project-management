@@ -1,12 +1,10 @@
-import type { Dispatch, SetStateAction } from 'react';
-
 import TaskStatusMenu from './TaskStatusMenu';
 import type { Task } from '../types/task';
 import { formatDateOnly } from '../utils/date-formatter';
 
 type TaskDetailsProps = {
   task: Task;
-  onStatusChange: Dispatch<SetStateAction<Task['status']>>;
+  onStatusChange: (_status: Task['status']) => void;
   onTaskRemove: (_taskId: Task['id']) => void;
 };
 

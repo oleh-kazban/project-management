@@ -1,7 +1,10 @@
 export type Task = {
   id: string;
   title: string;
-  status: 'completed' | 'in-progress' | 'todo';
+  createdAt: string; // ISO 8601 timestamp
+  status: TaskStatus;
   completedAt?: string; // YYYY-MM-DD
   dueDate?: string; // YYYY-MM-DD
 };
+
+export type TaskStatus = 'completed' | 'in-progress' | 'todo';

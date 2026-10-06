@@ -1,61 +1,19 @@
-import { type SetStateAction, useState } from 'react';
+import { useState } from 'react';
 
 import CreateTask from './CreateTask';
 import TaskDetails from './TaskDetails';
-import type { Task } from '../types/task';
-
-const tasksData = [
-  {
-    id: crypto.randomUUID(),
-    title: 'Learn the basics of JSX',
-    completedAt: '2026-10-06',
-    status: 'completed',
-  },
-  {
-    id: crypto.randomUUID(),
-    title: 'Build reusable components',
-    dueDate: '2026-11-06',
-    status: 'in-progress',
-  },
-  {
-    id: crypto.randomUUID(),
-    title: 'Practice managing component state',
-    dueDate: '2026-12-06',
-    status: 'todo',
-  },
-] satisfies Task[];
+import type { Task, TaskStatus } from '../types/task';
 
 type TaskListProps = {
-  onTasksChange: () => void;
+  onAddTask: (_task: Task) => void;
+  onRemoveTask: (_taskId: Task['id']) => void;
+  onTaskStatusChange: (_taskId: Task['id'], _status: TaskStatus) => void;
+  tasks: Task[];
 };
 
-const TaskList = ({ onTasksChange }: TaskListProps) => {
-  const [tasks, setTasks] = useState<Task[]>(tasksData);
+const TaskList = ({ tasks, onAddTask, onRemoveTask, onTaskStatusChange }: TaskListProps) => {
   const [showAddTask, setShowAddTask] = useState(false);
 
-  const updateTaskStatus = (taskId: Task['id'], status: SetStateAction<Task['status']>) => {
-    setTasks(currentTasks =>
-      currentTasks.map(task => {
-        if (task.id !== taskId) {
-          return task;
-        }
-
-        return {
-          ...task,
-          status: typeof status === 'function' ? status(task.status) : status,
-        };
-      }),
-    );
-    onTasksChange();
-  };
-  const addTask = (task: Task) => {
-    setTasks(previousTasks => [...previousTasks, task]);
-    onTasksChange();
-  };
-  const removeTask = (taskId: Task['id']) => {
-    setTasks(previousTasks => previousTasks.filter(task => task.id !== taskId));
-    onTasksChange();
-  };
   const handleShowAddTask = () => setShowAddTask(() => !showAddTask);
 
   return (
@@ -90,15 +48,15 @@ const TaskList = ({ onTasksChange }: TaskListProps) => {
         </button>
       </div>
 
-      {showAddTask && <CreateTask dueDate="2026-12-06" onAddTask={addTask} />}
+      {showAddTask && <CreateTask dueDate="2026-12-06" onAddTask={onAddTask} />}
 
       <ul className="mt-5 divide-y divide-default/[0.07]">
         {tasks.map(task => (
           <TaskDetails
             task={task}
             key={task.id}
-            onStatusChange={status => updateTaskStatus(task.id, status)}
-            onTaskRemove={removeTask}
+            onStatusChange={status => onTaskStatusChange(task.id, status)}
+            onTaskRemove={onRemoveTask}
           />
         ))}
       </ul>

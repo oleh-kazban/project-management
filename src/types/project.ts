@@ -2,8 +2,8 @@ export type Project = {
   id: string;
   title: string;
   description: string;
-  createdAt?: string; // YYYY-MM-DD
-  updateddAt?: string; // YYYY-MM-DD
-  dueDate?: string; // YYYY-MM-DD
+  createdAt: string; // ISO 8601 timestamp
+  updatedAt: string; // ISO 8601 timestamp
+  dueDate: string; // YYYY-MM-DD
   status: 'completed' | 'in-progress' | 'todo';
 };
