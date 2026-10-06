@@ -1,6 +1,18 @@
 # Project Management
 
-A starter project for building a React application with TypeScript, Vite, and Tailwind CSS. The current app is a minimal “Hello World” screen; the component files under `src/components` are placeholders for future features.
+A project management app built with React, TypeScript, Vite, and Tailwind CSS. It includes a project dashboard with project details and metrics, plus task creation, removal, and status updates.
+
+## Screenshots
+
+### Desktop
+
+![Project dashboard on desktop](docs/images/full-width.png)
+
+### Tablet and mobile
+
+| Tablet                                                 | Mobile                                                 |
+| ------------------------------------------------------ | ------------------------------------------------------ |
+| ![Project dashboard on tablet](docs/images/tablet.png) | ![Project dashboard on mobile](docs/images/mobile.png) |
 
 ## Prerequisites
 
@@ -65,7 +77,7 @@ ESLint enforces import groups in this order, with a blank line between groups:
 ├── public/                 # Static assets
 ├── src/
 │   ├── assets/             # Source assets
-│   ├── components/         # Application component placeholders
+│   ├── components/         # Project, task, and dashboard UI
 │   ├── App.tsx             # Root application component
 │   ├── index.css           # Global styles
 │   └── main.tsx            # Application entry point
