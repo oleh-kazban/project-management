@@ -20,29 +20,26 @@ interface TextMetric extends ProjectMetricBase {
   value: string;
 }
 
-export type ProjectMetricData =
-  | CompletionMetric
-  | ProgressMetric
-  | TextMetric;
+export type ProjectMetricData = CompletionMetric | ProgressMetric | TextMetric;
 
 const metricsData = [
   {
-    id: 'tasks-completed',
+    id: crypto.randomUUID(),
     title: 'Tasks completed',
     type: 'completion',
     value: {
       completed: 1,
-      total: 3
+      total: 3,
     },
   },
   {
-    id: 'progress',
+    id: crypto.randomUUID(),
     title: 'Progress',
     type: 'progress',
     value: 33,
   },
   {
-    id: 'project-timeline',
+    id: crypto.randomUUID(),
     title: 'Project timeline',
     type: 'text',
     value: '6 days remaining',
@@ -52,7 +49,9 @@ const metricsData = [
 const ProjectMetrics = () => {
   return (
     <div className="mt-7 grid gap-3 sm:grid-cols-3 xl:grid-cols-1 2xl:grid-cols-3">
-      {metricsData.map((metric, index) => <ProjectMetric metric={metric} key={index} />)}
+      {metricsData.map(metric => (
+        <ProjectMetric metric={metric} key={metric.id} />
+      ))}
     </div>
   );
 };

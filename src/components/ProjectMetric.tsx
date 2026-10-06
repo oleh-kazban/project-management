@@ -8,28 +8,30 @@ const ProjectMetric = ({ metric }: ProjectMetricProps) => {
   const { title, type, value } = metric;
 
   return (
-    <div className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-4">
-      <p className="text-xs font-medium text-slate-500">{title}</p>
+    <div className="rounded-xl border border-subtle/10 bg-foreground/[0.025] p-4">
+      <p className="text-xs font-medium text-foreground-subtle">{title}</p>
       {type === 'completion' && (
-        <p className="mt-2 text-xl font-semibold text-white">
+        <p className="mt-2 text-xl font-semibold text-foreground">
           {value.completed}{' '}
-          <span className="text-sm font-medium text-slate-500">of {value.total}</span>
+          <span className="text-sm font-medium text-foreground-subtle">of {value.total}</span>
         </p>
       )}
 
       {type === 'progress' && (
         <div className="mt-3 flex items-center gap-3">
-          <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-slate-700/70">
+          <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-foreground-secondary/20">
             <div
-              className="h-full rounded-full bg-cyan-300 transition-[width] duration-500 ease-out motion-reduce:transition-none"
+              className="h-full rounded-full bg-accent transition-[width] duration-500 ease-out motion-reduce:transition-none"
               style={{ width: `${value}%` }}
             />
           </div>
-          <span className="text-sm font-semibold text-slate-200">{value}%</span>
+          <span className="text-sm font-semibold text-foreground-secondary">{value}%</span>
         </div>
       )}
 
-      {type === 'text' && <p className="mt-2 text-sm font-semibold text-slate-200">{value}</p>}
+      {type === 'text' && (
+        <p className="mt-2 text-sm font-semibold text-foreground-secondary">{value}</p>
+      )}
     </div>
   );
 };
