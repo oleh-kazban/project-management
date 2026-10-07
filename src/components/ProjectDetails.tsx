@@ -49,7 +49,7 @@ const ProjectDetails = ({ project, tasks, onStatusChange }: projectProps) => {
           <span className="rounded-xl border border-default/10 bg-foreground/[0.03] px-3 py-2 text-xs text-foreground-muted">
             Due date: {formatDateOnly(dueDate)}
           </span>
-          <DotsFloatingMenu options={projectActionsOptions} ariaLabel='Project actions'/>
+          <DotsFloatingMenu options={projectActionsOptions} ariaLabel="Project actions" />
         </div>
       </div>
       <div className="mt-5">
