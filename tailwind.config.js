@@ -22,6 +22,7 @@ export default {
         warning: 'rgb(var(--color-warning) / <alpha-value>)',
         'warning-surface': 'rgb(var(--color-warning-surface) / <alpha-value>)',
         danger: 'rgb(var(--color-danger) / <alpha-value>)',
+        'danger-foreground': 'rgb(var(--color-danger-foreground) / <alpha-value>)',
         'danger-surface': 'rgb(var(--color-danger-surface) / <alpha-value>)',
         'project-violet': 'rgb(var(--color-project-violet) / <alpha-value>)',
         'project-violet-surface': 'rgb(var(--color-project-violet-surface) / <alpha-value>)',

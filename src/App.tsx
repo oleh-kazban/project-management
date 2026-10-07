@@ -18,7 +18,7 @@ const motivationalQuotes = [
   "Don't stop when you're tired. Stop when you're done.",
 ];
 
-const projectDetailsData = {
+const projectData = {
   id: crypto.randomUUID(),
   title: 'Learning React',
   description:
@@ -55,6 +55,7 @@ const tasksData = [
 function App() {
   const [motivationalQuote, setMotivationalQuote] = useState(motivationalQuotes[0]);
   const [tasks, setTasks] = useState<Task[]>(tasksData);
+  const [project, setProject] = useState<Project>(projectData);
 
   const updateMotivationalQuote = () => {
     const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
@@ -70,6 +71,13 @@ function App() {
   const handleRemoveTask = (taskId: Task['id']) => {
     setTasks(previousTasks => previousTasks.filter(task => task.id !== taskId));
     handleTasksChange();
+  };
+  const handleProjectStatusChange = (status: Project['status']) => {
+    setProject(currentProject => ({
+      ...currentProject,
+      status,
+      updatedAt: new Date().toISOString(),
+    }));
   };
   const handleTaskStatusChange = (taskId: Task['id'], status: TaskStatus) => {
     setTasks(currentTasks =>
@@ -364,7 +372,11 @@ function App() {
               aria-labelledby="project-title"
               className="grid w-full overflow-hidden rounded-2xl border border-default/10 bg-surface-raised shadow-2xl shadow-canvas/10 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]"
             >
-              <ProjectDetails project={projectDetailsData} tasks={tasks} />
+              <ProjectDetails
+                project={project}
+                tasks={tasks}
+                onStatusChange={handleProjectStatusChange}
+              />
               <TaskList
                 tasks={tasks}
                 onAddTask={handleAddTask}
