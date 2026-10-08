@@ -1,7 +1,7 @@
 import ProjectMetric from './ProjectMetric';
-import type { ProjectMetricData } from '../types/project-metric';
-import type { Task } from '../types/task';
-import { getDaysRemaining } from '../utils/date-utils';
+import type { ProjectMetricData } from '../../types/project-metric';
+import type { Task } from '../../types/task';
+import { getDaysRemaining } from '../../utils/date-utils';
 
 type ProjectMetricsProps = {
   tasks: Task[];

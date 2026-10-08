@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import CreateTask from './CreateTask';
 import TaskDetails from './TaskDetails';
-import type { Task, TaskStatus } from '../types/task';
+import type { Task, TaskStatus } from '../../types/task';
 
 type TaskListProps = {
   onAddTask: (_task: Task) => void;

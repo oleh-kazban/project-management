@@ -1,7 +1,7 @@
 import { type KeyboardEvent as ReactKeyboardEvent, useEffect, useId, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
-import { type Alignment, usePopup } from '../Popup/usePopup';
+import { type Alignment, usePopup } from '../hooks/usePopup';
 
 export type FloatingMenuOption<T> = {
   value: T;

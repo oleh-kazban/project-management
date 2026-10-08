@@ -1,19 +1,19 @@
 import ProjectMetrics from './ProjectMetrics';
-import { statusOptions } from '../constants/status-options';
-import type { Project } from '../types/project';
-import type { Task } from '../types/task';
-import DotsFloatingMenu, { DotsFloatingMenuOption } from '../ui/Menu/DotsFloatingMenu';
-import FloatingMenu from '../ui/Menu/FloatingMenu';
-import { formatDateOnly } from '../utils/date-formatter';
-import { getUpdateDateLabel } from '../utils/date-utils';
+import { statusOptions } from '../../constants/status-options';
+import type { Project } from '../../types/project';
+import type { Task } from '../../types/task';
+import DotsFloatingMenu, { DotsFloatingMenuOption } from '../../ui/Menu/DotsFloatingMenu';
+import FloatingMenu from '../../ui/Menu/FloatingMenu';
+import { formatDateOnly } from '../../utils/date-formatter';
+import { getUpdateDateLabel } from '../../utils/date-utils';
 
-type projectProps = {
+type ProjectProps = {
   project: Project;
   tasks: Task[];
   onStatusChange: (_status: Project['status']) => void;
 };
 
-const ProjectDetails = ({ project, tasks, onStatusChange }: projectProps) => {
+const ProjectDetails = ({ project, tasks, onStatusChange }: ProjectProps) => {
   const { title, description, dueDate, updatedAt, status } = project;
   const handleEdit = () => {
     console.log('handleEdit');

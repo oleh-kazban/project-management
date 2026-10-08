@@ -1,4 +1,4 @@
-import type { ProjectMetricData } from '../types/project-metric';
+import type { ProjectMetricData } from '../../types/project-metric';
 
 type ProjectMetricProps = {
   metric: ProjectMetricData;
