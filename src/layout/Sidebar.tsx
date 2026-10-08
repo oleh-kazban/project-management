@@ -1,6 +1,18 @@
-const Sidebar = () => {
+import UserProfile from './UserProfile';
+
+type SidebarProps = {
+  id: string;
+  isOpen: boolean;
+};
+
+// Below `lg` the sidebar is a drawer over the content, from `lg` up it is part of the page flow
+const Sidebar = ({ id, isOpen }: SidebarProps) => {
   return (
-    <aside className="hidden w-72 shrink-0 flex-col border-r border-default/10 bg-surface px-5 py-6 lg:flex">
+    <aside
+      id={id}
+      aria-label="Projects navigation"
+      className={`fixed inset-y-0 left-0 z-40 w-72 shrink-0 flex-col border-r border-default/10 bg-surface px-5 py-6 lg:static lg:z-auto ${isOpen ? 'flex' : 'hidden'}`}
+    >
       <a href="#" className="flex items-center gap-3 px-2">
         <span className="grid h-10 w-10 place-items-center rounded-xl bg-accent-strong/15 text-accent ring-1 ring-accent/20">
           <svg
@@ -119,9 +131,7 @@ const Sidebar = () => {
 
       <div className="mt-auto border-t border-default/10 pt-5">
         <div className="flex items-center gap-3 rounded-xl px-2 py-2">
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-surface-raised text-xs font-semibold text-foreground-secondary">
-            JD
-          </span>
+          <UserProfile className="bg-surface-raised text-foreground-secondary" />
           <span className="min-w-0">
             <span className="block truncate text-sm font-medium text-foreground-secondary">
               Jordan Davis

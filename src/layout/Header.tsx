@@ -1,10 +1,42 @@
-const Header = () => {
+import UserProfile from './UserProfile';
+
+type HeaderProps = {
+  isSidebarOpen: boolean;
+  sidebarId: string;
+  onSidebarToggle: () => void;
+};
+
+const Header = ({ isSidebarOpen, sidebarId, onSidebarToggle }: HeaderProps) => {
   return (
-    <div className="hidden h-[72px] items-center justify-between border-b border-default/10 px-8 lg:flex xl:px-12">
-      <div className="flex items-center gap-2 text-sm text-foreground-subtle">
-        <span>Workspace</span>
-        <span className="text-foreground-faint">/</span>
-        <span className="text-foreground-secondary">Projects</span>
+    <header className="flex h-[72px] items-center justify-between gap-3 border-b border-default/10 px-4 sm:px-6 lg:px-8 xl:px-12">
+      <div className="flex min-w-0 items-center gap-4">
+        <button
+          type="button"
+          aria-label="Toggle navigation"
+          aria-controls={sidebarId}
+          aria-expanded={isSidebarOpen}
+          onClick={onSidebarToggle}
+          className="rounded-lg border border-default/10 p-2 text-foreground-secondary transition hover:bg-foreground/5 hover:text-foreground"
+        >
+          <svg
+            aria-hidden="true"
+            className="h-5 w-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+          >
+            <path strokeLinecap="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <nav
+          aria-label="Breadcrumb"
+          className="hidden items-center gap-2 text-sm text-foreground-subtle sm:flex"
+        >
+          <span>Workspace</span>
+          <span className="text-foreground-faint">/</span>
+          <span className="text-foreground-secondary">Projects</span>
+        </nav>
       </div>
       <div className="flex items-center gap-3">
         <label className="relative block">
@@ -23,7 +55,7 @@ const Header = () => {
           <input
             type="search"
             placeholder="Search"
-            className="w-56 rounded-xl border border-default/10 bg-foreground/[0.03] py-2 pl-9 pr-3 text-sm text-foreground-secondary outline-none placeholder:text-foreground-faint focus:border-accent/40"
+            className="w-36 rounded-xl sm:w-56 border border-default/10 bg-foreground/[0.03] py-2 pl-9 pr-3 text-sm text-foreground-secondary outline-none placeholder:text-foreground-faint focus:border-accent/40"
           />
         </label>
         <button
@@ -47,11 +79,9 @@ const Header = () => {
           </svg>
           <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-accent" />
         </button>
-        <span className="grid h-9 w-9 place-items-center rounded-full border border-accent/20 bg-accent/10 text-xs font-semibold text-accent-soft">
-          JD
-        </span>
+        <UserProfile />
       </div>
-    </div>
+    </header>
   );
 };
 
