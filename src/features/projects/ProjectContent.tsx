@@ -6,11 +6,11 @@ import { Task, TaskStatus } from '../../types/task';
 import TaskList from '../tasks/TasksList';
 
 type ProjectContentProps = {
-  projectData: Project,
-  tasksData: Task[]
+  projectData: Project;
+  tasksData: Task[];
 };
 
-const ProjectContent = ({projectData, tasksData}: ProjectContentProps) => {
+const ProjectContent = ({ projectData, tasksData }: ProjectContentProps) => {
   const [project, setProject] = useState<Project>(projectData);
   const [tasks, setTasks] = useState<Task[]>(tasksData);
 
