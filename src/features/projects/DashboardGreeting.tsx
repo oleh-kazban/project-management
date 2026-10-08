@@ -1,16 +1,19 @@
 import { formatLongDate } from '../../utils/date-formatter';
+import { getGreeting } from '../../utils/greeting';
 
 type DashboardGreetingProps = {
   username: string;
 };
 
 const DashboardGreeting = ({ username }: DashboardGreetingProps) => {
+  const now = new Date();
+
   return (
     <div className="mb-8 flex items-end justify-between gap-4">
       <div>
-        <p className="text-sm font-medium text-accent">{formatLongDate(new Date())}</p>
+        <p className="text-sm font-medium text-accent">{formatLongDate(now)}</p>
         <h1 className="mt-2 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
-          Good morning, {username}
+          {getGreeting(username, now)}
         </h1>
         <p className="mt-2 text-sm text-foreground-muted sm:text-base">
           Here’s what’s happening with your projects.
