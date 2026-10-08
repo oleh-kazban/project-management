@@ -24,7 +24,7 @@ const projectData = {
   description:
     'Learn React from the ground up. Start with the basics, finish with advanced knowledge, and put it all together in a project of your own.',
   createdAt: '2026-02-25T09:00:00.000Z',
-  updatedAt: '2026-10-06T16:18:00+03:00',
+  updatedAt: '2026-10-06T16:18:00.000Z',
   dueDate: '2026-12-25', // YYYY-MM-DD
   status: 'in-progress',
 } satisfies Project;

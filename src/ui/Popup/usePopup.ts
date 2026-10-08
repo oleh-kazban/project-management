@@ -2,25 +2,25 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 export type Alignment = 'start' | 'end';
 type Placement = 'top' | 'bottom';
-type UseMenuOptions = {
+type UsePopupOptions = {
   alignment: Alignment;
 };
-type MenuPosition = {
+type PopupPosition = {
   top: number;
   left: number;
   maxHeight: number;
   placement: Placement;
 };
 
-const menuGap = 8;
+const popupGap = 8;
 const viewportPadding = 8;
 
-export const useMenu = ({ alignment }: UseMenuOptions) => {
+export const usePopup = ({ alignment }: UsePopupOptions) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
+  const [popupPosition, setPopupPosition] = useState<PopupPosition | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
-  const menuRef = useRef<HTMLDivElement>(null);
+  const popupRef = useRef<HTMLDivElement>(null);
 
   const close = () => setIsOpen(false);
   const toggle = () => setIsOpen(open => !open);
@@ -32,38 +32,38 @@ export const useMenu = ({ alignment }: UseMenuOptions) => {
 
     const updatePlacement = () => {
       const trigger = triggerRef.current;
-      const menu = menuRef.current;
+      const popup = popupRef.current;
 
-      if (!trigger || !menu) {
+      if (!trigger || !popup) {
         return;
       }
 
       const triggerRect = trigger.getBoundingClientRect();
-      const menuRect = menu.getBoundingClientRect();
-      const menuHeight = menu.scrollHeight;
-      const availableAbove = Math.max(0, triggerRect.top - menuGap - viewportPadding);
+      const popupRect = popup.getBoundingClientRect();
+      const popupHeight = popup.scrollHeight;
+      const availableAbove = Math.max(0, triggerRect.top - popupGap - viewportPadding);
       const availableBelow = Math.max(
         0,
-        window.innerHeight - triggerRect.bottom - menuGap - viewportPadding,
+        window.innerHeight - triggerRect.bottom - popupGap - viewportPadding,
       );
-      const fitsAbove = menuHeight <= availableAbove;
-      const fitsBelow = menuHeight <= availableBelow;
+      const fitsAbove = popupHeight <= availableAbove;
+      const fitsBelow = popupHeight <= availableBelow;
       const placement =
         fitsBelow || (!fitsAbove && availableBelow >= availableAbove) ? 'bottom' : 'top';
       const maxHeight = placement === 'bottom' ? availableBelow : availableAbove;
-      const renderedHeight = Math.min(menuHeight, maxHeight);
+      const renderedHeight = Math.min(popupHeight, maxHeight);
       const preferredLeft =
-        alignment === 'start' ? triggerRect.left : triggerRect.right - menuRect.width;
+        alignment === 'start' ? triggerRect.left : triggerRect.right - popupRect.width;
       const left = Math.min(
         Math.max(viewportPadding, preferredLeft),
-        window.innerWidth - menuRect.width - viewportPadding,
+        window.innerWidth - popupRect.width - viewportPadding,
       );
       const top =
         placement === 'bottom'
-          ? triggerRect.bottom + menuGap
-          : triggerRect.top - menuGap - renderedHeight;
+          ? triggerRect.bottom + popupGap
+          : triggerRect.top - popupGap - renderedHeight;
 
-      setMenuPosition({ top, left, maxHeight, placement });
+      setPopupPosition({ top, left, maxHeight, placement });
     };
 
     updatePlacement();
@@ -85,7 +85,7 @@ export const useMenu = ({ alignment }: UseMenuOptions) => {
       if (
         event.target instanceof Node &&
         !containerRef.current?.contains(event.target) &&
-        !menuRef.current?.contains(event.target)
+        !popupRef.current?.contains(event.target)
       ) {
         setIsOpen(false);
       }
@@ -107,5 +107,5 @@ export const useMenu = ({ alignment }: UseMenuOptions) => {
     };
   }, [isOpen]);
 
-  return { isOpen, close, toggle, menuPosition, containerRef, triggerRef, menuRef };
+  return { isOpen, close, toggle, popupPosition: popupPosition, containerRef, triggerRef, popupRef: popupRef };
 };

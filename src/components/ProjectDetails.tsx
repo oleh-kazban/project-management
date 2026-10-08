@@ -21,8 +21,16 @@ const ProjectDetails = ({ project, tasks, onStatusChange }: projectProps) => {
   const handleDelete = () => {
     console.log('handleDelete');
   };
+  const handleDuplicate = () => {
+    console.log('handleDuplicate');
+  };
+  const handleArchive = () => {
+    console.log('handleArchive');
+  };
   const projectActionsOptions = [
     { label: 'Edit', onSelect: handleEdit },
+    { label: 'Duplicate', onSelect: handleDuplicate },
+    { label: 'Archive', onSelect: handleArchive },
     {
       label: 'Delete',
       onSelect: handleDelete,

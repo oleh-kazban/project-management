@@ -1,7 +1,7 @@
 import { type KeyboardEvent as ReactKeyboardEvent, useEffect, useId, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
-import { type Alignment, useMenu } from './useMenu';
+import { type Alignment, usePopup } from '../Popup/usePopup';
 
 export type DotsFloatingMenuOption = {
   label: string;
@@ -20,10 +20,10 @@ const defaultOptionClassName =
 const DotsFloatingMenu = ({ options, ariaLabel, alignment = 'end' }: DotsFloatingMenuProps) => {
   const menuId = useId();
   const optionRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const { isOpen, close, toggle, menuPosition, containerRef, triggerRef, menuRef } = useMenu({
+  const { isOpen, close, toggle, popupPosition, containerRef, triggerRef, popupRef } = usePopup({
     alignment,
   });
-  const isPositioned = menuPosition !== null;
+  const isPositioned = popupPosition !== null;
 
   useEffect(() => {
     if (isOpen && isPositioned) {
@@ -77,18 +77,18 @@ const DotsFloatingMenu = ({ options, ariaLabel, alignment = 'end' }: DotsFloatin
       {isOpen &&
         createPortal(
           <div
-            ref={menuRef}
+            ref={popupRef}
             id={menuId}
             role="menu"
             aria-label={ariaLabel}
             className="fixed z-50 min-w-40 overflow-y-auto rounded-xl border border-default/10 bg-surface-raised p-1 shadow-xl shadow-canvas/20"
             style={{
-              top: menuPosition?.top ?? 0,
-              left: menuPosition?.left ?? 0,
-              ...(menuPosition ? { maxHeight: menuPosition.maxHeight } : {}),
-              visibility: menuPosition ? 'visible' : 'hidden',
+              top: popupPosition?.top ?? 0,
+              left: popupPosition?.left ?? 0,
+              ...(popupPosition ? { maxHeight: popupPosition.maxHeight } : {}),
+              visibility: popupPosition ? 'visible' : 'hidden',
             }}
-            data-placement={menuPosition?.placement}
+            data-placement={popupPosition?.placement}
           >
             {options.map((option, index) => (
               <button

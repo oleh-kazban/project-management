@@ -31,3 +31,71 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .rdp-root.app-calendar {
+    @apply text-sm text-foreground;
+    --rdp-accent-color: rgb(var(--color-accent));
+    --rdp-accent-background-color: rgb(var(--color-accent) / 0.12);
+    --rdp-day-height: 2.25rem;
+    --rdp-day-width: 2.25rem;
+    --rdp-day_button-height: 2.25rem;
+    --rdp-day_button-width: 2.25rem;
+    --rdp-day_button-border-radius: 0.5rem;
+    --rdp-selected-border: 2px solid transparent;
+    --rdp-nav_button-height: 2rem;
+    --rdp-nav_button-width: 2rem;
+    --rdp-nav-height: 2.25rem;
+    --rdp-disabled-opacity: 0.3;
+  }
+
+  .app-calendar .rdp-month_caption {
+    @apply text-sm font-semibold;
+  }
+
+  .app-calendar .rdp-weekday {
+    @apply text-xs font-medium text-foreground-subtle;
+  }
+
+  .app-calendar .rdp-selected {
+    @apply text-sm font-semibold;
+  }
+
+  .app-calendar .rdp-day_button {
+    @apply transition;
+  }
+
+  .app-calendar .rdp-day_button:hover:not(:disabled) {
+    @apply bg-foreground/5;
+  }
+
+  .app-calendar .rdp-today:not(.rdp-selected) .rdp-day_button {
+    @apply border-accent/40;
+  }
+
+  .app-calendar .rdp-today:not(.rdp-selected) {
+    @apply text-accent;
+  }
+
+  .app-calendar .rdp-selected .rdp-day_button {
+    @apply bg-accent text-accent-foreground;
+  }
+
+  .app-calendar .rdp-selected .rdp-day_button:hover:not(:disabled) {
+    @apply bg-accent-soft;
+  }
+
+  .app-calendar .rdp-button_next,
+  .app-calendar .rdp-button_previous {
+    @apply rounded-lg transition;
+  }
+
+  .app-calendar .rdp-button_next:hover:not(:disabled),
+  .app-calendar .rdp-button_previous:hover:not(:disabled) {
+    @apply bg-foreground/5;
+  }
+
+  .app-calendar button:focus-visible {
+    @apply outline outline-2 outline-offset-1 outline-accent;
+  }
+}
