@@ -107,5 +107,13 @@ export const usePopup = ({ alignment }: UsePopupOptions) => {
     };
   }, [isOpen]);
 
-  return { isOpen, close, toggle, popupPosition: popupPosition, containerRef, triggerRef, popupRef: popupRef };
+  return {
+    isOpen,
+    close,
+    toggle,
+    popupPosition: popupPosition,
+    containerRef,
+    triggerRef,
+    popupRef: popupRef,
+  };
 };
