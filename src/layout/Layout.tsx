@@ -1,4 +1,6 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { Outlet } from 'react-router';
 
 import Header from './Header';
 import Motivator from './Motivator';
@@ -20,11 +22,7 @@ const motivationalQuotes = [
   "Don't stop when you're tired. Stop when you're done.",
 ];
 
-type LayoutProps = {
-  children: ReactNode;
-};
-
-const Layout = ({ children }: LayoutProps) => {
+const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(
     () => window.matchMedia(DESKTOP_QUERY).matches,
   );
@@ -68,7 +66,7 @@ const Layout = ({ children }: LayoutProps) => {
             onSidebarToggle={() => setIsSidebarOpen(isOpen => !isOpen)}
           />
           <PageContainer>
-            {children}
+            <Outlet />
             <Motivator phrase={motivationalQuote} />
           </PageContainer>
         </main>
