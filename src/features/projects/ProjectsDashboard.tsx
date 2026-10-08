@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import DashboardGreeting from './DashboardGreeting';
 import ProjectDetails from './ProjectDetails';
 import { Project } from '../../types/project';
 import { Task, TaskStatus } from '../../types/task';
@@ -73,33 +74,7 @@ const ProjectsDashboard = () => {
 
   return (
     <>
-      <div className="mb-8 flex items-end justify-between gap-4">
-        <div>
-          <p className="text-sm font-medium text-accent">Monday, December 23</p>
-          <h1 className="mt-2 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
-            Good morning, Jordan
-          </h1>
-          <p className="mt-2 text-sm text-foreground-muted sm:text-base">
-            Here’s what’s happening with your projects.
-          </p>
-        </div>
-        <button
-          type="button"
-          className="hidden shrink-0 items-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-accent-foreground shadow-lg shadow-accent/10 transition hover:bg-accent-soft sm:inline-flex"
-        >
-          <svg
-            aria-hidden="true"
-            className="h-4 w-4"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path strokeLinecap="round" d="M12 5v14m-7-7h14" />
-          </svg>
-          New project
-        </button>
-      </div>
+      <DashboardGreeting username="Jordan" />
       <section
         aria-labelledby="project-title"
         className="grid w-full overflow-hidden rounded-2xl border border-default/10 bg-surface-raised shadow-2xl shadow-canvas/10 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]"

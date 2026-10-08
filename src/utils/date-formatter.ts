@@ -1,8 +1,19 @@
-const dateFormatter = new Intl.DateTimeFormat(undefined, {
+import { APP_LOCALE } from '../constants/locale';
+
+const dateFormatter = new Intl.DateTimeFormat(APP_LOCALE, {
   month: 'short',
   day: 'numeric',
   year: 'numeric',
 });
+
+const longDateFormatter = new Intl.DateTimeFormat(APP_LOCALE, {
+  weekday: 'long',
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+});
+
+export const formatLongDate = (date: Date) => longDateFormatter.format(date);
 
 export const formatDateOnly = (date: string) => {
   const [year, month, day] = date.split('-').map(Number);
