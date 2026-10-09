@@ -2,28 +2,36 @@ import { useEffect, useState } from 'react';
 
 import { useParams } from 'react-router';
 
-import { Project } from '../../types/project';
-import { Task } from '../../types/task';
 import ProjectContent from './ProjectContent';
 import ProjectNotFound from './ProjectNotFound';
 import ProjectNotSelected from './ProjectNotSelected';
+import { Project } from '../../types/project';
+import { Task } from '../../types/task';
 import Loader from '../../ui/Loader/Loader';
 
 const ProjectView = () => {
   const { projectId } = useParams();
+
+  // Track projectId to reset state during render when it changes
+  const [currentProjectId, setCurrentProjectId] = useState(projectId);
   const [projectData, setProjectData] = useState<Project | null>(null);
   const [projectTasksData, setProjectTasksData] = useState<Task[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(!!projectId);
   const [error, setError] = useState<string | null>(null);
+
+  if (projectId !== currentProjectId) {
+    setCurrentProjectId(projectId);
+    setProjectData(null);
+    setProjectTasksData([]);
+    setIsLoading(!!projectId);
+    setError(null);
+  }
 
   useEffect(() => {
     if (!projectId) return;
 
     const controller = new AbortController();
     const { signal } = controller;
-
-    setIsLoading(true);
-    setError(null);
 
     Promise.all([
       fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}`, { signal }).then(res => {
@@ -33,7 +41,7 @@ const ProjectView = () => {
       fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}/tasks`, { signal }).then(res => {
         if (!res.ok) throw new Error('tasks-fetch-error');
         return res.json();
-      })
+      }),
     ])
       .then(([project, tasks]) => {
         setProjectData(project);
