@@ -1,12 +1,21 @@
+import { Project } from '../types/project';
+import SidebarItem from './SidebarItem';
 import UserProfile from './UserProfile';
+
+type SidebarProjectItemProps = {
+  title: string;
+  tasks: number;
+  id: string;
+};
 
 type SidebarProps = {
   id: string;
   isOpen: boolean;
+  items: SidebarProjectItemProps[]
 };
 
 // Below `lg` the sidebar is a drawer over the content, from `lg` up it is part of the page flow
-const Sidebar = ({ id, isOpen }: SidebarProps) => {
+const Sidebar = ({ id, isOpen, items }: SidebarProps) => {
   return (
     <aside
       id={id}
@@ -89,44 +98,7 @@ const Sidebar = ({ id, isOpen }: SidebarProps) => {
       </details>
 
       <nav aria-label="Projects" className="mt-5 space-y-1.5">
-        <a
-          href="#"
-          aria-current="page"
-          className="flex items-center gap-3 rounded-xl border border-accent/15 bg-accent/[0.08] px-3 py-3 text-sm text-foreground shadow-[inset_2px_0_0_0_rgb(var(--color-accent))]"
-        >
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-accent/10 text-xs font-semibold text-accent-soft">
-            LR
-          </span>
-          <span className="min-w-0 flex-1">
-            <span className="block truncate font-medium">Learning React</span>
-            <span className="mt-1 block text-xs text-foreground-subtle">3 tasks</span>
-          </span>
-          <span className="h-2 w-2 rounded-full bg-accent" />
-        </a>
-        <a
-          href="#"
-          className="flex items-center gap-3 rounded-xl border border-transparent px-3 py-3 text-sm text-foreground-muted transition hover:border-default/5 hover:bg-foreground/[0.04] hover:text-foreground-secondary"
-        >
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-project-violet-surface/10 text-xs font-semibold text-project-violet">
-            MR
-          </span>
-          <span className="min-w-0 flex-1">
-            <span className="block truncate font-medium">Mastering React</span>
-            <span className="mt-1 block text-xs text-foreground-faint">5 tasks</span>
-          </span>
-        </a>
-        <a
-          href="#"
-          className="flex items-center gap-3 rounded-xl border border-transparent px-3 py-3 text-sm text-foreground-muted transition hover:border-default/5 hover:bg-foreground/[0.04] hover:text-foreground-secondary"
-        >
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-warning-surface/10 text-xs font-semibold text-warning">
-            WP
-          </span>
-          <span className="min-w-0 flex-1">
-            <span className="block truncate font-medium">React Portfolio</span>
-            <span className="mt-1 block text-xs text-foreground-faint">2 tasks</span>
-          </span>
-        </a>
+        {items.map(({ id, title, tasks }) => <SidebarItem key={id} id={id} title={title} tasks={tasks} />)}
       </nav>
 
       <div className="mt-auto border-t border-default/10 pt-5">

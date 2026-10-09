@@ -6,6 +6,7 @@ import Header from './Header';
 import Motivator from './Motivator';
 import PageContainer from './PageContainer';
 import Sidebar from './Sidebar';
+import { projectsData, tasksData } from '../constants/data';
 
 const SIDEBAR_ID = 'app-sidebar';
 const DESKTOP_QUERY = '(min-width: 1024px)';
@@ -21,6 +22,10 @@ const motivationalQuotes = [
   'Success is the sum of small efforts repeated daily.',
   "Don't stop when you're tired. Stop when you're done.",
 ];
+
+const sidebarItems = projectsData.map(({ title, id }) => ({
+  title, id, tasks: tasksData.filter(task => task.projectId === id).length
+}))
 
 const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(
@@ -50,7 +55,7 @@ const Layout = () => {
   return (
     <div className="min-h-screen bg-canvas text-foreground">
       <div className="flex min-h-screen w-full">
-        <Sidebar id={SIDEBAR_ID} isOpen={isSidebarOpen} />
+        <Sidebar id={SIDEBAR_ID} isOpen={isSidebarOpen} items={sidebarItems} />
         {isSidebarOpen && (
           <div
             aria-hidden="true"
