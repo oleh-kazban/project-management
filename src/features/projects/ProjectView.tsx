@@ -1,9 +1,10 @@
+import { useEffect, useState } from 'react';
+
 import { useParams } from 'react-router';
 
 import ProjectContent from './ProjectContent';
 import ProjectNotFound from './ProjectNotFound';
 import ProjectNotSelected from './ProjectNotSelected';
-import { useEffect, useState } from 'react';
 
 const ProjectView = () => {
   const { projectId } = useParams();
@@ -15,10 +16,10 @@ const ProjectView = () => {
 
     fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}`)
       .then(res => res.json())
-      .then(data => setProjectData(data))
+      .then(data => setProjectData(data));
     fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}/tasks`)
       .then(res => res.json())
-      .then(data => setProjectTasksData(data))
+      .then(data => setProjectTasksData(data));
   }, [projectId]);
 
   let ariaLabel;

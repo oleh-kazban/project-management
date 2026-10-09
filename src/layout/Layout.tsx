@@ -58,7 +58,7 @@ const Layout = () => {
           tasks: tasks.length,
         }));
         setSidebarItems(items);
-      })
+      });
   }, []);
 
   return (
