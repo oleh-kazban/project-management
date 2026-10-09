@@ -1,9 +1,9 @@
 import { useParams } from 'react-router';
 
-import { projectsData, tasksData } from '../../constants/data';
 import ProjectContent from './ProjectContent';
 import ProjectNotFound from './ProjectNotFound';
 import ProjectNotSelected from './ProjectNotSelected';
+import { projectsData, tasksData } from '../../constants/data';
 
 const ProjectView = () => {
   const { projectId } = useParams();
