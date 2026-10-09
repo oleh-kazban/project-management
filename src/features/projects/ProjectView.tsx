@@ -21,7 +21,9 @@ const ProjectView = () => {
     component = <ProjectNotFound />;
   } else {
     ariaLabel = 'project-details';
-    component = <ProjectContent key={projectData.id} projectData={projectData} tasksData={projectTasksData} />;
+    component = (
+      <ProjectContent key={projectData.id} projectData={projectData} tasksData={projectTasksData} />
+    );
   }
 
   return (
