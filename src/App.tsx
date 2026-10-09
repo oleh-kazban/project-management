@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router';
 import ProjectsDashboard from './features/projects/ProjectsDashboard';
 import ProjectView from './features/projects/ProjectView';
 import Layout from './layout/Layout';
+import ProjectForm from './features/projects/ProjectForm';
 
 function App() {
   return (
@@ -11,6 +12,8 @@ function App() {
         <Route path="/" element={<Navigate to="/projects" replace />} />
         <Route path="/projects" element={<ProjectsDashboard />} />
         <Route path="/projects/:projectId" element={<ProjectView />} />
+        <Route path="/projects/:projectId/edit" element={<ProjectForm />} />
+        <Route path="/projects/create" element={<ProjectForm />} />
       </Route>
     </Routes>
   );
