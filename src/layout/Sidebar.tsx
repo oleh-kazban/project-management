@@ -62,7 +62,6 @@ const Sidebar = ({ id, isOpen, items }: SidebarProps) => {
         Create project
       </Link>
 
-
       <nav aria-label="Projects" className="mt-5 space-y-1.5">
         {items.map(({ id, title, tasks, status }) => (
           <SidebarItem key={id} id={id} title={title} tasks={tasks} status={status} />

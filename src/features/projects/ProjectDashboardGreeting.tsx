@@ -1,4 +1,5 @@
 import { Link } from 'react-router';
+
 import { formatLongDate } from '../../utils/date-formatter';
 import { getGreeting } from '../../utils/greeting';
 
