@@ -13,7 +13,7 @@ const Sidebar = ({ id, isOpen, items }: SidebarProps) => {
     <aside
       id={id}
       aria-label="Projects navigation"
-      className={`fixed inset-y-0 left-0 z-40 w-72 shrink-0 flex-col border-r border-default/10 bg-surface px-5 py-6 lg:static lg:z-auto ${isOpen ? 'flex' : 'hidden'}`}
+      className={`fixed inset-y-0 left-0 z-40 flex w-72 shrink-0 flex-col border-r border-default/10 bg-surface px-5 py-6 transition-all duration-300 ease-in-out lg:static lg:z-auto ${isOpen ? 'ml-0' : '-ml-72'}`}
     >
       <a href="#" className="flex items-center gap-3 px-2">
         <span className="grid h-10 w-10 place-items-center rounded-xl bg-accent-strong/15 text-accent ring-1 ring-accent/20">
