@@ -24,8 +24,10 @@ const motivationalQuotes = [
 ];
 
 const sidebarItems = projectsData.map(({ title, id }) => ({
-  title, id, tasks: tasksData.filter(task => task.projectId === id).length
-}))
+  title,
+  id,
+  tasks: tasksData.filter(task => task.projectId === id).length,
+}));
 
 const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(

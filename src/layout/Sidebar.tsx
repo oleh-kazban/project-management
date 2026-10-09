@@ -1,17 +1,10 @@
-import { Project } from '../types/project';
-import SidebarItem from './SidebarItem';
+import SidebarItem, { type SidebarItemProps } from './SidebarItem';
 import UserProfile from './UserProfile';
-
-type SidebarProjectItemProps = {
-  title: string;
-  tasks: number;
-  id: string;
-};
 
 type SidebarProps = {
   id: string;
   isOpen: boolean;
-  items: SidebarProjectItemProps[]
+  items: SidebarItemProps[];
 };
 
 // Below `lg` the sidebar is a drawer over the content, from `lg` up it is part of the page flow
@@ -98,7 +91,9 @@ const Sidebar = ({ id, isOpen, items }: SidebarProps) => {
       </details>
 
       <nav aria-label="Projects" className="mt-5 space-y-1.5">
-        {items.map(({ id, title, tasks }) => <SidebarItem key={id} id={id} title={title} tasks={tasks} />)}
+        {items.map(({ id, title, tasks }) => (
+          <SidebarItem key={id} id={id} title={title} tasks={tasks} />
+        ))}
       </nav>
 
       <div className="mt-auto border-t border-default/10 pt-5">
