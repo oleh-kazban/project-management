@@ -5,7 +5,7 @@ type DashboardGreetingProps = {
   username: string;
 };
 
-const DashboardGreeting = ({ username }: DashboardGreetingProps) => {
+const ProjectDashboardGreeting = ({ username }: DashboardGreetingProps) => {
   const now = new Date();
 
   return (
@@ -39,4 +39,4 @@ const DashboardGreeting = ({ username }: DashboardGreetingProps) => {
   );
 };
 
-export default DashboardGreeting;
+export default ProjectDashboardGreeting;

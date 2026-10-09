@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import SidebarItem, { type SidebarItemProps } from './SidebarItem';
 import UserProfile from './UserProfile';
 
@@ -15,7 +16,7 @@ const Sidebar = ({ id, isOpen, items }: SidebarProps) => {
       aria-label="Projects navigation"
       className={`fixed inset-y-0 left-0 z-40 flex w-72 shrink-0 flex-col border-r border-default/10 bg-surface px-5 py-6 transition-all duration-300 ease-in-out lg:static lg:z-auto ${isOpen ? 'ml-0' : '-ml-72'}`}
     >
-      <a href="#" className="flex items-center gap-3 px-2">
+      <Link to="/projects" className="flex items-center gap-3 px-2">
         <span className="grid h-10 w-10 place-items-center rounded-xl bg-accent-strong/15 text-accent ring-1 ring-accent/20">
           <svg
             aria-hidden="true"
@@ -32,7 +33,7 @@ const Sidebar = ({ id, isOpen, items }: SidebarProps) => {
           <span className="block font-semibold tracking-tight text-foreground">Focusboard</span>
           <span className="mt-0.5 block text-xs text-foreground-subtle">Project workspace</span>
         </span>
-      </a>
+      </Link>
 
       <div className="mt-9 flex items-center justify-between px-2">
         <h2 className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground-subtle">
