@@ -2,24 +2,55 @@ import { useEffect, useState } from 'react';
 
 import { useParams } from 'react-router';
 
+import { Project } from '../../types/project';
+import { Task } from '../../types/task';
 import ProjectContent from './ProjectContent';
 import ProjectNotFound from './ProjectNotFound';
 import ProjectNotSelected from './ProjectNotSelected';
+import Loader from '../../ui/Loader/Loader';
 
 const ProjectView = () => {
   const { projectId } = useParams();
-  const [projectData, setProjectData] = useState(null);
-  const [projectTasksData, setProjectTasksData] = useState([]);
+  const [projectData, setProjectData] = useState<Project | null>(null);
+  const [projectTasksData, setProjectTasksData] = useState<Task[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!projectId) return;
 
-    fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}`)
-      .then(res => res.json())
-      .then(data => setProjectData(data));
-    fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}/tasks`)
-      .then(res => res.json())
-      .then(data => setProjectTasksData(data));
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    setIsLoading(true);
+    setError(null);
+
+    Promise.all([
+      fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}`, { signal }).then(res => {
+        if (!res.ok) throw new Error('project-not-found');
+        return res.json();
+      }),
+      fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}/tasks`, { signal }).then(res => {
+        if (!res.ok) throw new Error('tasks-fetch-error');
+        return res.json();
+      })
+    ])
+      .then(([project, tasks]) => {
+        setProjectData(project);
+        setProjectTasksData(tasks);
+        setIsLoading(false);
+      })
+      .catch(err => {
+        if (err.name !== 'AbortError') {
+          console.error('Failed to fetch data:', err);
+          setError(err.message);
+          setIsLoading(false);
+        }
+      });
+
+    return () => {
+      controller.abort();
+    };
   }, [projectId]);
 
   let ariaLabel;
@@ -28,7 +59,10 @@ const ProjectView = () => {
   if (!projectId) {
     ariaLabel = 'project-not-selected';
     component = <ProjectNotSelected />;
-  } else if (!projectData) {
+  } else if (isLoading) {
+    ariaLabel = 'project-loading';
+    component = <Loader />;
+  } else if (error === 'project-not-found' || !projectData) {
     ariaLabel = 'project-not-found';
     component = <ProjectNotFound />;
   } else {
