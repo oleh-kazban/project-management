@@ -16,12 +16,14 @@ const longDateFormatter = new Intl.DateTimeFormat(APP_LOCALE, {
 export const formatLongDate = (date: Date) => longDateFormatter.format(date);
 
 export const formatDateOnly = (date: string) => {
-  const [year, month, day] = date.split('-').map(Number);
+  const datePart = date.split('T')[0];
+  const [year, month, day] = datePart.split('-').map(Number);
   return dateFormatter.format(new Date(year, month - 1, day));
 };
 
 export const parseDateOnly = (date: string) => {
-  const [year, month, day] = date.split('-').map(Number);
+  const datePart = date.split('T')[0];
+  const [year, month, day] = datePart.split('-').map(Number);
   return new Date(year, month - 1, day);
 };
 
