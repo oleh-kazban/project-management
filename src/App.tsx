@@ -1,9 +1,9 @@
 import { Navigate, Route, Routes } from 'react-router';
 
+import ProjectForm from './features/projects/ProjectForm';
 import ProjectsDashboard from './features/projects/ProjectsDashboard';
 import ProjectView from './features/projects/ProjectView';
 import Layout from './layout/Layout';
-import ProjectForm from './features/projects/ProjectForm';
 
 function App() {
   return (

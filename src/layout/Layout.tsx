@@ -6,7 +6,6 @@ import Header from './Header';
 import Motivator from './Motivator';
 import PageContainer from './PageContainer';
 import Sidebar from './Sidebar';
-import { projectsData, tasksData } from '../constants/data';
 
 const SIDEBAR_ID = 'app-sidebar';
 const DESKTOP_QUERY = '(min-width: 1024px)';
@@ -23,12 +22,6 @@ const motivationalQuotes = [
   "Don't stop when you're tired. Stop when you're done.",
 ];
 
-const sidebarItems = projectsData.map(({ title, id }) => ({
-  title,
-  id,
-  tasks: tasksData.filter(task => task.projectId === id).length,
-}));
-
 const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(
     () => window.matchMedia(DESKTOP_QUERY).matches,
@@ -36,6 +29,7 @@ const Layout = () => {
   const [motivationalQuote] = useState(
     () => motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)],
   );
+  const [sidebarItems, setSidebarItems] = useState([]);
 
   useEffect(() => {
     if (!isSidebarOpen) {
@@ -53,6 +47,19 @@ const Layout = () => {
 
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [isSidebarOpen]);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/projects?_embed=tasks`)
+      .then(res => res.json())
+      .then(data => {
+        const items = data.map(({ title, id, tasks }: any) => ({
+          title,
+          id,
+          tasks: tasks.length,
+        }));
+        setSidebarItems(items);
+      })
+  }, []);
 
   return (
     <div className="min-h-screen bg-canvas text-foreground">

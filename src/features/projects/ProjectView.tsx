@@ -3,12 +3,23 @@ import { useParams } from 'react-router';
 import ProjectContent from './ProjectContent';
 import ProjectNotFound from './ProjectNotFound';
 import ProjectNotSelected from './ProjectNotSelected';
-import { projectsData, tasksData } from '../../constants/data';
+import { useEffect, useState } from 'react';
 
 const ProjectView = () => {
   const { projectId } = useParams();
-  const projectData = projectsData.find(project => project.id === projectId);
-  const projectTasksData = tasksData.filter(task => task.projectId === projectId);
+  const [projectData, setProjectData] = useState(null);
+  const [projectTasksData, setProjectTasksData] = useState([]);
+
+  useEffect(() => {
+    if (!projectId) return;
+
+    fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}`)
+      .then(res => res.json())
+      .then(data => setProjectData(data))
+    fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}/tasks`)
+      .then(res => res.json())
+      .then(data => setProjectTasksData(data))
+  }, [projectId]);
 
   let ariaLabel;
   let component;
