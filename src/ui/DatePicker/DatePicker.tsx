@@ -5,7 +5,7 @@ import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/style.css';
 
 import { formatDateOnly, parseDateOnly, toDateOnlyString } from '../../utils/date-formatter';
-import { type Alignment, usePopup } from '../Popup/usePopup';
+import { type Alignment, usePopup } from '../hooks/usePopup';
 
 // value, minDate and maxDate are date-only strings (YYYY-MM-DD), the same format as the models
 type DatePickerProps = {
@@ -14,6 +14,7 @@ type DatePickerProps = {
   maxDate?: string;
   placeholder?: string;
   triggerClassName?: string;
+  className?: string;
   onChange: (_value: string | undefined) => void;
   ariaLabel: string;
   alignment?: Alignment;
@@ -29,6 +30,7 @@ const DatePicker = ({
   maxDate,
   placeholder = 'Select date',
   triggerClassName,
+  className = '',
   ariaLabel,
   alignment = 'start',
   disabled = false,
@@ -56,7 +58,7 @@ const DatePicker = ({
   };
 
   return (
-    <div ref={containerRef} className="relative inline-block">
+    <div ref={containerRef} className={`relative inline-block ${className}`.trim()}>
       <button
         ref={triggerRef}
         type="button"

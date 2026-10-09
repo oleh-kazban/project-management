@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import { formatLongDate } from '../../utils/date-formatter';
 import { getGreeting } from '../../utils/greeting';
 
@@ -19,8 +20,8 @@ const ProjectDashboardGreeting = ({ username }: DashboardGreetingProps) => {
           Here’s what’s happening with your projects.
         </p>
       </div>
-      <button
-        type="button"
+      <Link
+        to="/projects/create"
         className="hidden shrink-0 items-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-accent-foreground shadow-lg shadow-accent/10 transition hover:bg-accent-soft sm:inline-flex"
       >
         <svg
@@ -34,7 +35,7 @@ const ProjectDashboardGreeting = ({ username }: DashboardGreetingProps) => {
           <path strokeLinecap="round" d="M12 5v14m-7-7h14" />
         </svg>
         New project
-      </button>
+      </Link>
     </div>
   );
 };
