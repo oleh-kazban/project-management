@@ -1,5 +1,9 @@
+import { statusOptions } from '../constants/status-options';
+import { Project } from '../types/project';
+
 type SidebarItemAvatarProps = {
   title: string;
+  status: Project['status'];
 };
 
 const getAvatar = (title: string): string => {
@@ -9,10 +13,16 @@ const getAvatar = (title: string): string => {
 
   return `${firstLetter}${secondLetter}`.toUpperCase();
 };
-const SidebarItemAvatar = ({ title }: SidebarItemAvatarProps) => {
+
+const SidebarItemAvatar = ({ title, status }: SidebarItemAvatarProps) => {
+  const statusConfig = statusOptions.find(opt => opt.value === status);
+  const colorClasses = statusConfig ? statusConfig.className : 'bg-accent/10 text-accent-soft';
+
   return (
     title && (
-      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-accent/10 text-xs font-semibold text-accent-soft">
+      <span
+        className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg text-xs font-semibold ${colorClasses}`}
+      >
         {getAvatar(title)}
       </span>
     )

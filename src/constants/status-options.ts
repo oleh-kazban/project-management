@@ -1,4 +1,4 @@
-import type { TaskStatus } from '../types/task';
+import { Status } from '../types/status';
 import type { FloatingMenuOption } from '../ui/Menu/FloatingMenu';
 
 export const statusOptions = [
@@ -20,4 +20,4 @@ export const statusOptions = [
     className: 'bg-success-surface/10 text-success',
     indicatorClassName: 'bg-success',
   },
-] satisfies FloatingMenuOption<TaskStatus>[];
+] satisfies FloatingMenuOption<Status>[];

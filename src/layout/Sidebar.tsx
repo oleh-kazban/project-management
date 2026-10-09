@@ -91,8 +91,8 @@ const Sidebar = ({ id, isOpen, items }: SidebarProps) => {
       </details>
 
       <nav aria-label="Projects" className="mt-5 space-y-1.5">
-        {items.map(({ id, title, tasks }) => (
-          <SidebarItem key={id} id={id} title={title} tasks={tasks} />
+        {items.map(({ id, title, tasks, status }) => (
+          <SidebarItem key={id} id={id} title={title} tasks={tasks} status={status} />
         ))}
       </nav>
 

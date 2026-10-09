@@ -52,9 +52,10 @@ const Layout = () => {
     fetch(`${import.meta.env.VITE_API_URL}/projects?_embed=tasks`)
       .then(res => res.json())
       .then(data => {
-        const items = data.map(({ title, id, tasks }: any) => ({
+        const items = data.map(({ title, id, tasks, status }: any) => ({
           title,
           id,
+          status,
           tasks: tasks.length,
         }));
         setSidebarItems(items);

@@ -1,14 +1,16 @@
 import { NavLink } from 'react-router';
 
+import { Project } from '../types/project';
 import SidebarItemAvatar from './SidebarItemAvatar';
 
 export type SidebarItemProps = {
   title: string;
   tasks: number;
   id: string;
+  status: Project['status'];
 };
 
-const SidebarItem = ({ title, tasks, id }: SidebarItemProps) => {
+const SidebarItem = ({ title, tasks, id, status }: SidebarItemProps) => {
   const tasksLabel = tasks ? `${tasks} task${tasks > 1 ? 's' : ''}` : 'No tasks';
   const baseClasses = 'flex items-center gap-3 rounded-xl border px-3 py-3 text-sm';
   const activeClasses =
@@ -24,7 +26,7 @@ const SidebarItem = ({ title, tasks, id }: SidebarItemProps) => {
     >
       {({ isActive }) => (
         <>
-          <SidebarItemAvatar title={title} />
+          <SidebarItemAvatar title={title} status={status} />
           <span className="min-w-0 flex-1">
             <span className="block truncate font-medium">{title}</span>
             <span className="mt-1 block text-xs text-foreground-subtle">{tasksLabel}</span>
