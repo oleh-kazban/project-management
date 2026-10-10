@@ -32,7 +32,7 @@ the expected package manager version in `package.json`:
 
 ```json
 {
-  "packageManager": "pnpm@10.9.0"
+  "packageManager": "pnpm@12.10.1"
 }
 ```
 

@@ -17,15 +17,16 @@ A project management app built with React, TypeScript, Vite, and Tailwind CSS. I
 ## Prerequisites
 
 - Node.js
-- pnpm 10.9.0
+- pnpm 12.10.1
 
 ## Getting started
 
-Install dependencies and start the development server:
+Install dependencies and start the development server along with the mock API server:
 
 ```sh
 pnpm install
 pnpm dev
+pnpm server
 ```
 
 Vite prints the local development URL in the terminal.
@@ -35,6 +36,7 @@ Vite prints the local development URL in the terminal.
 | Command             | Description                                        |
 | ------------------- | -------------------------------------------------- |
 | `pnpm dev`          | Start the Vite development server.                 |
+| `pnpm server`       | Start the json-server mock API on port 3000.       |
 | `pnpm build`        | Create a production build in `dist/`.              |
 | `pnpm preview`      | Preview the production build locally.              |
 | `pnpm check:cycles` | Check for circular dependencies in `src/`.         |
@@ -77,7 +79,12 @@ ESLint enforces import groups in this order, with a blank line between groups:
 ├── public/                 # Static assets
 ├── src/
 │   ├── assets/             # Source assets
-│   ├── components/         # Project, task, and dashboard UI
+│   ├── constants/          # Application constants
+│   ├── features/           # Feature-based modules (Project, Task management)
+│   ├── layout/             # Layout components
+│   ├── types/              # TypeScript definitions
+│   ├── ui/                 # Reusable UI components
+│   ├── utils/              # Helper functions
 │   ├── App.tsx             # Root application component
 │   ├── index.css           # Global styles
 │   └── main.tsx            # Application entry point

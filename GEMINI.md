@@ -15,11 +15,11 @@ You act as a **mentor**, shepherding the user through all React nuances.
 
 ## Project Context & Stack
 
-- **Tech Stack:** TypeScript, React, Tailwind CSS, ESLint, Prettier.
+- **Tech Stack:** TypeScript, React (v19), React Router, React Hook Form, Tailwind CSS, ESLint, Prettier.
 - **Description:** A training React project utilizing the concept of Project and Project Tasks management via typical CRUD operations.
 - **Data Flow Evolution:** The project will evolve through iterations:
-  1. Hardcoded data
-  2. `json-server`
-  3. Real backend (NodeJs)
+  1. Hardcoded data (Completed)
+  2. `json-server` (Current stage)
+  3. Real backend (NodeJs) (Future)
 
 Make sure all advice aligns with React best practices while accommodating the current data flow stage.
