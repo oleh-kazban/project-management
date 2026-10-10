@@ -41,12 +41,12 @@ const ProjectForm = () => {
       const projectData: Project = isEditing
         ? { ...payload, updatedAt: new Date().toISOString() }
         : {
-          ...payload,
-          id: crypto.randomUUID(),
-          status: 'todo',
-          createdAt: new Date().toISOString(),
-          updatedAt: null,
-        };
+            ...payload,
+            id: crypto.randomUUID(),
+            status: 'todo',
+            createdAt: new Date().toISOString(),
+            updatedAt: null,
+          };
 
       const response = await fetch(url, {
         method,

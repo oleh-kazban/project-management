@@ -80,15 +80,18 @@
       "status": "completed",
       "createdAt": "2022-01-08T19:42:22.608Z",
       "projectId": "8a03fe3f-fde8-449c-b826-321aac1b8957",
-      "completedAt": "2025-03-14T19:12:45.393Z"
+      "completedAt": "2025-03-14T19:12:45.393Z",
+      "dueDate": "2027-03-12"
     },
     {
       "id": "4026ffa9-b567-4a51-ab2b-a3a8dd3bde39",
       "title": "velit dolore eiusmod officia",
-      "status": "completed",
+      "status": "todo",
       "createdAt": "2022-07-09T20:04:40.991Z",
       "projectId": "8a03fe3f-fde8-449c-b826-321aac1b8957",
-      "completedAt": "2025-06-16T12:58:13.075Z"
+      "completedAt": null,
+      "updatedAt": "2026-10-10T16:06:41.449Z",
+      "dueDate": "2027-03-12"
     },
     {
       "id": "d011f990-045d-44af-aa1c-52334419fb00",
@@ -96,7 +99,7 @@
       "status": "in-progress",
       "createdAt": "2022-10-18T14:54:51.929Z",
       "projectId": "8a03fe3f-fde8-449c-b826-321aac1b8957",
-      "dueDate": "2027-12-29T05:46:38.937Z",
+      "dueDate": "2027-03-12",
       "updatedAt": null,
       "completedAt": null
     },
@@ -106,7 +109,7 @@
       "status": "todo",
       "createdAt": "2022-07-01T15:29:53.070Z",
       "projectId": "654fa746-ca62-4305-bc87-67f2a22945bc",
-      "dueDate": "2027-12-29T05:46:38.937Z",
+      "dueDate": "2027-10-18",
       "updatedAt": "2026-10-10T16:02:32.629Z",
       "completedAt": null
     },
@@ -116,7 +119,7 @@
       "status": "completed",
       "createdAt": "2022-12-29T05:46:38.937Z",
       "projectId": "654fa746-ca62-4305-bc87-67f2a22945bc",
-      "dueDate": "2027-12-29T05:46:38.937Z",
+      "dueDate": "2027-10-18",
       "updatedAt": "2026-10-10T16:02:18.453Z",
       "completedAt": "2026-10-10T16:02:18.453Z"
     },
@@ -126,7 +129,7 @@
       "status": "todo",
       "createdAt": "2022-11-22T16:13:02.805Z",
       "projectId": "94ac9f91-11fd-4bb6-99dd-62b5e4f994fb",
-      "dueDate": "2027-12-29T05:46:38.937Z",
+      "dueDate": "2027-09-18",
       "updatedAt": null,
       "completedAt": null
     },
@@ -136,7 +139,8 @@
       "status": "completed",
       "createdAt": "2022-02-16T00:18:42.874Z",
       "projectId": "4ca700cb-9558-4832-bf92-8ffe1b2e8168",
-      "completedAt": "2025-08-04T22:37:37.324Z"
+      "completedAt": "2025-08-04T22:37:37.324Z",
+      "dueDate": "2027-05-12"
     },
     {
       "id": "11981be3-3d29-48f2-9536-67bf2e854727",
@@ -144,7 +148,7 @@
       "status": "todo",
       "createdAt": "2022-08-28T23:17:48.291Z",
       "projectId": "fde0cd35-a512-4765-bd7c-30e677e96d96",
-      "dueDate": "2027-12-29T05:46:38.937Z",
+      "dueDate": "2027-04-02",
       "updatedAt": null,
       "completedAt": null
     },
@@ -154,7 +158,8 @@
       "status": "completed",
       "createdAt": "2022-12-16T06:13:58.133Z",
       "projectId": "711afd01-3838-4850-a3f8-f8656197169a",
-      "completedAt": "2025-05-29T02:12:13.565Z"
+      "completedAt": "2025-05-29T02:12:13.565Z",
+      "dueDate": "2027-03-03"
     }
   ]
 }

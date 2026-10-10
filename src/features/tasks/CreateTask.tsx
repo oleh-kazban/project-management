@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 import type { Task } from '@pm/types';
 
@@ -9,7 +9,7 @@ type CreateTaskProps = {
 
 const CreateTask = ({ dueDate, onAddTask }: CreateTaskProps) => {
   const [title, setTitle] = useState('');
-  const handleAddTask = (event: React.FormEvent) => {
+  const handleAddTask = (event: FormEvent) => {
     event.preventDefault();
 
     if (!title) {

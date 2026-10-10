@@ -15,18 +15,15 @@ const ProjectView = () => {
     queryKey: ['project', projectId],
     enabled: !!projectId,
     queryFn: async ({ signal }) => {
-      const [projectResponse, tasksResponse] = await Promise.all([
-        fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}`, { signal }),
-        fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}/tasks`, { signal }),
-      ]);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}`, {
+        signal,
+      });
 
-      if (!projectResponse.ok) throw new Error('project-not-found');
-      if (!tasksResponse.ok) throw new Error('project-tasks-fetch-error');
+      if (!response.ok) throw new Error('project-not-found');
 
-      const project = await projectResponse.json();
-      const tasks = await tasksResponse.json();
+      const project = await response.json();
 
-      return { project, tasks };
+      return { project };
     },
   });
 
@@ -44,9 +41,7 @@ const ProjectView = () => {
     component = <ProjectNotFound />;
   } else {
     ariaLabel = 'project-details';
-    component = (
-      <ProjectContent key={data.project.id} projectData={data.project} tasksData={data.tasks} />
-    );
+    component = <ProjectContent key={data.project.id} projectData={data.project} />;
   }
 
   return (

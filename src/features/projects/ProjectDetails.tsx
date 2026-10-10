@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router';
 
 import type { Project } from '@pm/types';
-import type { Task } from '@pm/types';
 import { DotsFloatingMenu, DotsFloatingMenuOption } from '@pm/ui';
 import { FloatingMenu } from '@pm/ui';
 
@@ -21,7 +20,7 @@ const ProjectDetails = ({ project, onStatusChange }: ProjectProps) => {
   const navigate = useNavigate();
 
   const handleEdit = () => {
-    navigate(`/projects/${project.id}/edit`)
+    navigate(`/projects/${project.id}/edit`);
   };
   const handleDelete = () => {
     console.log('handleDelete');

@@ -9,47 +9,65 @@ import TaskDetails from './TaskDetails';
 
 type TaskListProps = {
   projectId: string;
+  projectDueDate: string;
 };
 
-const TaskList = ({ projectId }: TaskListProps) => {
+const TaskList = ({ projectId, projectDueDate }: TaskListProps) => {
   const [showAddTask, setShowAddTask] = useState(false);
   const queryClient = useQueryClient();
 
   const handleShowAddTask = () => setShowAddTask(() => !showAddTask);
-  const handleAddTask = (task: Omit<Task, 'projectId' | 'completedAt' | 'createdAt' | 'updatedAt'>) => {
-    createTaskMutation.mutate({ ...task, projectId, createdAt: new Date().toISOString(), updatedAt: null, completedAt: null });
-  }
+  const handleAddTask = (
+    task: Omit<Task, 'projectId' | 'completedAt' | 'createdAt' | 'updatedAt'>,
+  ) => {
+    createTaskMutation.mutate({
+      ...task,
+      projectId,
+      createdAt: new Date().toISOString(),
+      updatedAt: null,
+      completedAt: null,
+      dueDate: projectDueDate,
+    });
+  };
   const handleTaskStatusChange = (task: Task, status: Task['status']) => {
-    updateTaskMutation.mutate({ ...task, projectId, status, updatedAt: new Date().toISOString(), completedAt: status === 'completed' ? new Date().toISOString() : null });
-  }
+    updateTaskMutation.mutate({
+      ...task,
+      projectId,
+      status,
+      updatedAt: new Date().toISOString(),
+      completedAt: status === 'completed' ? new Date().toISOString() : null,
+    });
+  };
   const handleTaskTitleChange = (task: Task, title: Task['title']) => {
     updateTaskMutation.mutate({ ...task, projectId, title, updatedAt: new Date().toISOString() });
-  }
+  };
   const handleTaskRemove = (taskId: Task['id']) => {
     deleteTaskMutation.mutate(taskId);
-  }
+  };
 
   const { data } = useQuery({
     queryKey: ['tasks', projectId],
     enabled: true,
     queryFn: async ({ signal }) => {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}/tasks`, { signal });
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}/tasks`, {
+        signal,
+      });
 
       if (!response.ok) throw new Error(`Can't fetch tasks`);
 
       const tasks: Task[] = await response.json();
 
       return { tasks };
-    }
+    },
   });
   const createTaskMutation = useMutation({
     mutationFn: async (payload: Task) => {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/tasks`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) throw new Error(`Can't create task`);
@@ -57,18 +75,18 @@ const TaskList = ({ projectId }: TaskListProps) => {
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['tasks'] })
+      queryClient.invalidateQueries({ queryKey: ['tasks'] });
     },
-    onError: error => console.log('Error: ', error)
-  })
+    onError: error => console.log('Error: ', error),
+  });
   const updateTaskMutation = useMutation({
     mutationFn: async (payload: Task) => {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/tasks/${payload.id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) throw new Error(`Can't update task`);
@@ -76,17 +94,17 @@ const TaskList = ({ projectId }: TaskListProps) => {
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['tasks'] })
+      queryClient.invalidateQueries({ queryKey: ['tasks'] });
     },
-    onError: error => console.log('Error: ', error)
-  })
+    onError: error => console.log('Error: ', error),
+  });
   const deleteTaskMutation = useMutation({
     mutationFn: async (taskId: string) => {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/tasks/${taskId}`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
       });
 
       if (!response.ok) throw new Error(`Can't delete task`);
@@ -94,10 +112,10 @@ const TaskList = ({ projectId }: TaskListProps) => {
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['tasks'] })
+      queryClient.invalidateQueries({ queryKey: ['tasks'] });
     },
-    onError: error => console.log('Error: ', error)
-  })
+    onError: error => console.log('Error: ', error),
+  });
 
   return (
     <div className="p-5 sm:p-7 lg:p-8">

@@ -20,9 +20,10 @@ const TaskDetails = ({ task, onStatusChange, onTitleChange, onTaskRemove }: Task
   const [isEditing, setIsEditing] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const date = status !== 'completed'
-    ? `Due date: ${formatDateOnly(dueDate)}`
-    : `Completed ${formatDateOnly(completedAt)}`;
+  const date =
+    status !== 'completed'
+      ? `Due date: ${formatDateOnly(dueDate)}`
+      : `Completed ${formatDateOnly(completedAt)}`;
 
   const handleDelete = () => {
     setIsConfirmationOpen(true);
@@ -35,13 +36,13 @@ const TaskDetails = ({ task, onStatusChange, onTitleChange, onTaskRemove }: Task
       onTitleChange(task, newValue);
     }
     setIsEditing(false);
-  }
+  };
   const handleCancel = () => {
     setIsEditing(false);
-  }
+  };
   const handleStartEdit = () => {
     setIsEditing(true);
-  }
+  };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Escape') {
@@ -49,7 +50,7 @@ const TaskDetails = ({ task, onStatusChange, onTitleChange, onTaskRemove }: Task
     } else if (e.key === 'Enter') {
       handleSave();
     }
-  }
+  };
 
   return (
     <>
@@ -83,7 +84,7 @@ const TaskDetails = ({ task, onStatusChange, onTitleChange, onTaskRemove }: Task
           <button
             type="button"
             aria-label={`${isEditing ? 'Save' : 'Edit'} ${title}`}
-            onClick={() => isEditing ? handleSave() : handleStartEdit()}
+            onClick={() => (isEditing ? handleSave() : handleStartEdit())}
             className="rounded-lg px-2.5 py-1.5 text-xs font-medium text-foreground-subtle transition hover:bg-foreground/5 hover:text-foreground"
           >
             {isEditing ? 'Save' : 'Edit'}
@@ -113,8 +114,7 @@ const TaskDetails = ({ task, onStatusChange, onTitleChange, onTaskRemove }: Task
           }}
           onCancel={() => setIsConfirmationOpen(false)}
         />
-      )
-      }
+      )}
     </>
   );
 };
