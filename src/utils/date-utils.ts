@@ -25,7 +25,9 @@ export const getUpdateDateLabel = (updatedAt: string) => {
     updatedDate.getFullYear() === now.getFullYear() &&
     updatedDate.getMonth() === now.getMonth() &&
     updatedDate.getDate() === now.getDate();
-  const minutesSinceUpdate = Math.floor((now.getTime() - updatedDate.getTime()) / minuteInMilliseconds);
+  const minutesSinceUpdate = Math.floor(
+    (now.getTime() - updatedDate.getTime()) / minuteInMilliseconds,
+  );
 
   if (isToday && minutesSinceUpdate < 60) {
     if (minutesSinceUpdate < 1) return 'just now';
