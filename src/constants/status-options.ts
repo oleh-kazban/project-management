@@ -1,5 +1,5 @@
 import { Status } from '@pm/types';
-import type {  FloatingMenuOption  } from '@pm/ui';
+import type { FloatingMenuOption } from '@pm/ui';
 
 export const statusOptions = [
   {

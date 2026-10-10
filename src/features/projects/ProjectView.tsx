@@ -18,7 +18,7 @@ const ProjectView = () => {
       const [projectResponse, tasksResponse] = await Promise.all([
         fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}`, { signal }),
         fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}/tasks`, { signal }),
-      ])
+      ]);
 
       if (!projectResponse.ok) throw new Error('project-not-found');
       if (!tasksResponse.ok) throw new Error('project-tasks-fetch-error');
@@ -27,8 +27,8 @@ const ProjectView = () => {
       const tasks = await tasksResponse.json();
 
       return { project, tasks };
-    }
-  })
+    },
+  });
 
   let ariaLabel;
   let component;

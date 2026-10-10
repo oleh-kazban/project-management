@@ -1,6 +1,6 @@
 import type { Project } from '@pm/types';
 import type { Task } from '@pm/types';
-import { DotsFloatingMenu,  DotsFloatingMenuOption  } from '@pm/ui';
+import { DotsFloatingMenu, DotsFloatingMenuOption } from '@pm/ui';
 import { FloatingMenu } from '@pm/ui';
 
 import { statusOptions } from '../../constants/status-options';
