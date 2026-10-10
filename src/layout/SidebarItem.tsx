@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router';
 
+import { Project } from '@pm/types';
+
 import SidebarItemAvatar from './SidebarItemAvatar';
-import { Project } from '../types/project';
 
 export type SidebarItemProps = {
   title: string;

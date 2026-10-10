@@ -1,11 +1,11 @@
 import { useEffect, useId } from 'react';
-import { createPortal } from 'react-dom';
-
 import { DayPicker } from 'react-day-picker';
-import 'react-day-picker/style.css';
+import { createPortal } from 'react-dom';
 
 import { formatDateOnly, parseDateOnly, toDateOnlyString } from '../../utils/date-formatter';
 import { type Alignment, usePopup } from '../hooks/usePopup';
+
+import 'react-day-picker/style.css';
 
 // value, minDate and maxDate are date-only strings (YYYY-MM-DD), the same format as the models
 type DatePickerProps = {

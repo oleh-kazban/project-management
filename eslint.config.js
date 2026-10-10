@@ -2,14 +2,13 @@ import { fixupPluginRules } from '@eslint/compat';
 import js from '@eslint/js';
 import tsParser from '@typescript-eslint/parser';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
-import importPlugin from 'eslint-plugin-import';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import globals from 'globals';
 
 const reactPlugin = fixupPluginRules(react);
-const importPluginCompat = fixupPluginRules(importPlugin);
 
 export default [
   {
@@ -29,13 +28,12 @@ export default [
       globals: globals.browser,
     },
     plugins: {
-      import: importPluginCompat,
       react: reactPlugin,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
+      'simple-import-sort': simpleImportSort,
     },
     settings: {
-      'import/internal-regex': '^@/',
       react: {
         version: 'detect',
       },
@@ -60,30 +58,27 @@ export default [
           prev: '*',
           next: 'export',
         },
+        {
+          blankLine: 'any',
+          prev: 'export',
+          next: 'export',
+        },
       ],
-      'import/order': [
+      'simple-import-sort/imports': [
         'error',
         {
           groups: [
-            ['builtin', 'external'],
-            ['internal', 'parent', 'sibling', 'index'],
+            ['^react'],
+            ['^@tanstack'],
+            ['^@?\\w'],
+            ['^@pm/'],
+            ['^\\.\\.(?!/?$)', '^\\.\\./?$'],
+            ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
+            ['^.+\\.s?css$'],
           ],
-          pathGroups: [
-            {
-              pattern: 'react{,-dom}{,/**}',
-              group: 'external',
-              position: 'before',
-            },
-          ],
-          pathGroupsExcludedImportTypes: ['builtin'],
-          'newlines-between': 'always',
-          alphabetize: {
-            order: 'asc',
-            caseInsensitive: true,
-          },
-          named: true,
         },
       ],
+      'simple-import-sort/exports': 'error',
     },
   },
   eslintConfigPrettier,

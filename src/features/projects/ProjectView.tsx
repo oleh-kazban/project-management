@@ -1,22 +1,26 @@
 import { useEffect, useState } from 'react';
-
 import { useParams } from 'react-router';
+
+import { useQuery } from '@tanstack/react-query';
+
+import { Project } from '@pm/types';
+import { Task } from '@pm/types';
+import { Loader } from '@pm/ui';
 
 import ProjectContent from './ProjectContent';
 import ProjectNotFound from './ProjectNotFound';
 import ProjectNotSelected from './ProjectNotSelected';
-import { Project } from '../../types/project';
-import { Task } from '../../types/task';
-import Loader from '../../ui/Loader/Loader';
 
 const ProjectView = () => {
   const { projectId } = useParams();
 
+  const { data, isLoading, error } = useQuery
+
   // Track projectId to reset state during render when it changes
-  const [projectData, setProjectData] = useState<Project | null>(null);
-  const [projectTasksData, setProjectTasksData] = useState<Task[]>([]);
-  const [isLoading, setIsLoading] = useState(!!projectId);
-  const [error, setError] = useState<string | null>(null);
+  // const [projectData, setProjectData] = useState<Project | null>(null);
+  // const [projectTasksData, setProjectTasksData] = useState<Task[]>([]);
+  // const [isLoading, setIsLoading] = useState(!!projectId);
+  // const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!projectId) return;

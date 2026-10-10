@@ -1,10 +1,12 @@
 import { useState } from 'react';
 
-import ProjectDetails from './ProjectDetails';
-import { Project } from '../../types/project';
-import { Status } from '../../types/status';
-import { Task } from '../../types/task';
+import { Project } from '@pm/types';
+import { Status } from '@pm/types';
+import { Task } from '@pm/types';
+
 import TaskList from '../tasks/TasksList';
+
+import ProjectDetails from './ProjectDetails';
 
 type ProjectContentProps = {
   projectData: Project;

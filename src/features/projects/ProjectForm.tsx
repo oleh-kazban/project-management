@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import DatePicker from '../../ui/DatePicker/DatePicker';
+import { DatePicker } from '@pm/ui';
 
 const ProjectForm = () => {
   const [dueDate, setDueDate] = useState<string | undefined>();

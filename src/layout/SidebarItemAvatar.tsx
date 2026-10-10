@@ -1,5 +1,6 @@
+import { Project } from '@pm/types';
+
 import { statusOptions } from '../constants/status-options';
-import { Project } from '../types/project';
 
 type SidebarItemAvatarProps = {
   title: string;

@@ -1,9 +1,10 @@
 import { useState } from 'react';
 
+import type { Task } from '@pm/types';
+import { Confirmation } from '@pm/ui';
+import { FloatingMenu } from '@pm/ui';
+
 import { statusOptions } from '../../constants/status-options';
-import type { Task } from '../../types/task';
-import Confirmation from '../../ui/Confirmation/Confirmation';
-import FloatingMenu from '../../ui/Menu/FloatingMenu';
 import { formatDateOnly } from '../../utils/date-formatter';
 
 type TaskDetailsProps = {

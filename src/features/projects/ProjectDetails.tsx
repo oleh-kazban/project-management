@@ -1,11 +1,13 @@
-import ProjectMetrics from './ProjectMetrics';
+import type { Project } from '@pm/types';
+import type { Task } from '@pm/types';
+import { DotsFloatingMenu,  DotsFloatingMenuOption  } from '@pm/ui';
+import { FloatingMenu } from '@pm/ui';
+
 import { statusOptions } from '../../constants/status-options';
-import type { Project } from '../../types/project';
-import type { Task } from '../../types/task';
-import DotsFloatingMenu, { DotsFloatingMenuOption } from '../../ui/Menu/DotsFloatingMenu';
-import FloatingMenu from '../../ui/Menu/FloatingMenu';
 import { formatDateOnly } from '../../utils/date-formatter';
 import { getUpdateDateLabel } from '../../utils/date-utils';
+
+import ProjectMetrics from './ProjectMetrics';
 
 type ProjectProps = {
   project: Project;
