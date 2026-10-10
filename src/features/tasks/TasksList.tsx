@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import type { Task } from '@pm/types';
+import { appToast } from '@pm/utils';
 
 import CreateTask from './CreateTask';
 import TaskDetails from './TaskDetails';
@@ -53,7 +54,7 @@ const TaskList = ({ projectId, projectDueDate }: TaskListProps) => {
         signal,
       });
 
-      if (!response.ok) throw new Error(`Can't fetch tasks`);
+      if (!response.ok) throw new Error(JSON.stringify({ code: 'TASKS_LOAD_FAILED', meta: { projectId } }));
 
       const tasks: Task[] = await response.json();
 
@@ -70,14 +71,14 @@ const TaskList = ({ projectId, projectDueDate }: TaskListProps) => {
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) throw new Error(`Can't create task`);
+      if (!response.ok) throw new Error(JSON.stringify({ code: 'TASK_CREATE_FAILED' }));
 
       return response.json();
     },
     onSuccess: () => {
+      appToast.success('Task created', 'The task was created successfully.');
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
     },
-    onError: error => console.log('Error: ', error),
   });
   const updateTaskMutation = useMutation({
     mutationFn: async (payload: Task) => {
@@ -89,14 +90,14 @@ const TaskList = ({ projectId, projectDueDate }: TaskListProps) => {
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) throw new Error(`Can't update task`);
+      if (!response.ok) throw new Error(JSON.stringify({ code: 'TASK_UPDATE_FAILED', meta: { taskId: payload.id } }));
 
       return response.json();
     },
     onSuccess: () => {
+      appToast.success('Task updated', 'The task was updated successfully.');
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
     },
-    onError: error => console.log('Error: ', error),
   });
   const deleteTaskMutation = useMutation({
     mutationFn: async (taskId: string) => {
@@ -107,14 +108,14 @@ const TaskList = ({ projectId, projectDueDate }: TaskListProps) => {
         },
       });
 
-      if (!response.ok) throw new Error(`Can't delete task`);
+      if (!response.ok) throw new Error(JSON.stringify({ code: 'TASK_DELETE_FAILED', meta: { taskId } }));
 
       return response.json();
     },
     onSuccess: () => {
+      appToast.success('Task deleted', 'The task was deleted successfully.');
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
     },
-    onError: error => console.log('Error: ', error),
   });
 
   return (

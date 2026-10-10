@@ -59,7 +59,7 @@ const Layout = () => {
         signal,
       });
 
-      if (!response.ok) throw new Error(`Can't load projects data`);
+      if (!response.ok) throw new Error(JSON.stringify({ code: 'PROJECTS_LOAD_FAILED' }));
 
       const projectsInfo: ProjectsInfo[] = await response.json();
       const projects = projectsInfo.map(({ title, id, tasks, status }) => ({
@@ -99,7 +99,7 @@ const Layout = () => {
           </main>
         </div>
       </div>
-      <Toaster />
+      <Toaster position="top-right" />
     </>
   );
 };

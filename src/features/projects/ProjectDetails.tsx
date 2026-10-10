@@ -5,10 +5,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { Project } from '@pm/types';
 import { DotsFloatingMenu, DotsFloatingMenuOption } from '@pm/ui';
 import { FloatingMenu } from '@pm/ui';
+import { appToast, formatDateOnly, getUpdateDateLabel } from '@pm/utils';
 
 import { statusOptions } from '../../constants/status-options';
-import { formatDateOnly } from '../../utils/date-formatter';
-import { getUpdateDateLabel } from '../../utils/date-utils';
 
 import ProjectMetrics from './ProjectMetrics';
 
@@ -58,15 +57,14 @@ const ProjectDetails = ({ project }: ProjectProps) => {
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) throw new Error(`Can't update project status`);
+      if (!response.ok) throw new Error(JSON.stringify({ code: 'PROJECT_STATUS_UPDATE_FAILED' }));
 
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['project'] });
-    },
-    onError: error => {
-      console.log('Error: ', error);
+      appToast.success('Status updated', 'The project status was changed successfully.');
+      queryClient.invalidateQueries({ queryKey: ['project', id] });
+      queryClient.invalidateQueries({ queryKey: ['projects'] });
     },
   });
 

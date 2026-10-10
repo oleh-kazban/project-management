@@ -5,6 +5,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { Project } from '@pm/types';
 import { DatePicker } from '@pm/ui';
+import { appToast } from '@pm/utils';
 
 type ProjectData = {
   title: string;
@@ -24,7 +25,7 @@ const ProjectForm = () => {
         signal,
       });
 
-      if (!response.ok) throw new Error(`Can't load project details`);
+      if (!response.ok) throw new Error(JSON.stringify({ code: 'PROJECT_DETAILS_LOAD_FAILED', meta: { id: projectId } }));
 
       const project: Project = await response.json();
 
@@ -56,16 +57,16 @@ const ProjectForm = () => {
         body: JSON.stringify(projectData),
       });
 
-      if (!response.ok) throw new Error(`Failed to ${isEditing ? 'update' : 'create'} project`);
+      if (!response.ok) throw new Error(JSON.stringify({ code: isEditing ? 'PROJECT_UPDATE_FAILED' : 'PROJECT_CREATE_FAILED', meta: { id: isEditing ? projectId : '' } }));
 
       return response.json();
     },
     onSuccess: data => {
+      appToast.success('Project saved', `The project was ${projectId ? 'updated' : 'created'} successfully.`);
       queryClient.invalidateQueries({ queryKey: ['projects'] });
       queryClient.invalidateQueries({ queryKey: ['projectsInfo'] });
       navigate(`/projects/${data.id}`);
     },
-    onError: error => console.log(error),
   });
   const {
     register,
