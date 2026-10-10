@@ -1,6 +1,6 @@
 import { toast } from 'react-hot-toast';
 
-import CustomToast from '@pm/components/ui/CustomToast';
+import { CustomToast } from '@pm/ui';
 
 export const appToast = {
   success: (title: string, description?: string) =>

@@ -6,3 +6,4 @@ export { default as DotsFloatingMenu } from './Menu/DotsFloatingMenu';
 export * from './Menu/DotsFloatingMenu';
 export { default as FloatingMenu } from './Menu/FloatingMenu';
 export * from './Menu/FloatingMenu';
+export { default as CustomToast } from './Toast/CustomToast';
