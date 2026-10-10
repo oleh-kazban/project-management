@@ -2,12 +2,11 @@ import { useNavigate } from 'react-router';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { statusOptions } from '@pm/constants';
 import type { Project } from '@pm/types';
 import { DotsFloatingMenu, DotsFloatingMenuOption } from '@pm/ui';
 import { FloatingMenu } from '@pm/ui';
 import { appToast, formatDateOnly, getUpdateDateLabel } from '@pm/utils';
-
-import { statusOptions } from '../../constants/status-options';
 
 import ProjectMetrics from './ProjectMetrics';
 

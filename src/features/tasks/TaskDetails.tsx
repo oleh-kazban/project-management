@@ -1,10 +1,10 @@
 import { type KeyboardEvent, useRef, useState } from 'react';
 
+import { statusOptions } from '@pm/constants';
 import type { Task } from '@pm/types';
 import { Confirmation } from '@pm/ui';
 import { FloatingMenu } from '@pm/ui';
 
-import { statusOptions } from '../../constants/status-options';
 import { formatDateOnly } from '../../utils/date-formatter';
 
 type TaskDetailsProps = {

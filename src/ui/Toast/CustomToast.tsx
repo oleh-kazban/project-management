@@ -87,7 +87,7 @@ const CustomToast = ({ t, title, description, type = 'info' }: ToastProps) => {
     <div
       className={`${
         t.visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-      } ${containerStyles[type]} pointer-events-auto flex w-full max-w-md transform rounded-xl border border-default/10 p-4 shadow-lg transition-all duration-300`}
+      } ${containerStyles[type]} pointer-events-auto flex w-full max-w-xs transform rounded-xl border border-default/10 p-4 shadow-lg transition-all duration-300`}
     >
       <div className="flex w-full items-start gap-4">
         {Icon()}

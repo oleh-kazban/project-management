@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router';
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import { type ErrorCode, ErrorCodes } from '@pm/constants/errors';
+import { type ErrorCode, ErrorCodes } from '@pm/constants';
 import { appToast } from '@pm/utils';
 
 import App from './App.tsx';
