@@ -1,10 +1,7 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 
 import { useQuery } from '@tanstack/react-query';
 
-import { Project } from '@pm/types';
-import { Task } from '@pm/types';
 import { Loader } from '@pm/ui';
 
 import ProjectContent from './ProjectContent';
@@ -14,47 +11,24 @@ import ProjectNotSelected from './ProjectNotSelected';
 const ProjectView = () => {
   const { projectId } = useParams();
 
-  const { data, isLoading, error } = useQuery
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['project', projectId],
+    enabled: !!projectId,
+    queryFn: async ({ signal }) => {
+      const [projectResponse, tasksResponse] = await Promise.all([
+        fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}`, { signal }),
+        fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}/tasks`, { signal }),
+      ])
 
-  // Track projectId to reset state during render when it changes
-  // const [projectData, setProjectData] = useState<Project | null>(null);
-  // const [projectTasksData, setProjectTasksData] = useState<Task[]>([]);
-  // const [isLoading, setIsLoading] = useState(!!projectId);
-  // const [error, setError] = useState<string | null>(null);
+      if (!projectResponse.ok) throw new Error('project-not-found');
+      if (!tasksResponse.ok) throw new Error('project-tasks-fetch-error');
 
-  useEffect(() => {
-    if (!projectId) return;
+      const project = await projectResponse.json();
+      const tasks = await tasksResponse.json();
 
-    const controller = new AbortController();
-    const { signal } = controller;
-
-    Promise.all([
-      fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}`, { signal }).then(res => {
-        if (!res.ok) throw new Error('project-not-found');
-        return res.json();
-      }),
-      fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}/tasks`, { signal }).then(res => {
-        if (!res.ok) throw new Error('tasks-fetch-error');
-        return res.json();
-      }),
-    ])
-      .then(([project, tasks]) => {
-        setProjectData(project);
-        setProjectTasksData(tasks);
-        setIsLoading(false);
-      })
-      .catch(err => {
-        if (err.name !== 'AbortError') {
-          console.error('Failed to fetch data:', err);
-          setError(err.message);
-          setIsLoading(false);
-        }
-      });
-
-    return () => {
-      controller.abort();
-    };
-  }, [projectId]);
+      return { project, tasks };
+    }
+  })
 
   let ariaLabel;
   let component;
@@ -65,13 +39,13 @@ const ProjectView = () => {
   } else if (isLoading) {
     ariaLabel = 'project-loading';
     component = <Loader />;
-  } else if (error === 'project-not-found' || !projectData) {
+  } else if (error?.message === 'project-not-found' || (!isLoading && !data)) {
     ariaLabel = 'project-not-found';
     component = <ProjectNotFound />;
   } else {
     ariaLabel = 'project-details';
     component = (
-      <ProjectContent key={projectData.id} projectData={projectData} tasksData={projectTasksData} />
+      <ProjectContent key={data.project.id} projectData={data.project} tasksData={data.tasks} />
     );
   }
 
