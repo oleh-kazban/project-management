@@ -3,13 +3,15 @@ import { useState } from 'react';
 import type { Task } from '@pm/types';
 
 type CreateTaskProps = {
-  onAddTask: (_task: Task) => void;
+  onAddTask: (_task: Omit<Task, 'projectId' | 'completedAt' | 'createdAt' | 'updatedAt'>) => void;
   dueDate: string;
 };
 
 const CreateTask = ({ dueDate, onAddTask }: CreateTaskProps) => {
   const [title, setTitle] = useState('');
-  const handleAddTask = () => {
+  const handleAddTask = (event: React.FormEvent) => {
+    event.preventDefault();
+
     if (!title) {
       return;
     }
@@ -17,7 +19,6 @@ const CreateTask = ({ dueDate, onAddTask }: CreateTaskProps) => {
     onAddTask({
       id: crypto.randomUUID(),
       title,
-      createdAt: new Date().toISOString(),
       status: 'todo',
       dueDate,
     });

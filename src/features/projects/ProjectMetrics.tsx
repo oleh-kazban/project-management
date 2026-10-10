@@ -4,15 +4,29 @@ import type { Task } from '@pm/types';
 import { getDaysRemaining } from '../../utils/date-utils';
 
 import ProjectMetric from './ProjectMetric';
+import { useQuery } from '@tanstack/react-query';
 
 type ProjectMetricsProps = {
-  tasks: Task[];
+  projectId: string;
   dueDate: string;
 };
 
-const ProjectMetrics = ({ tasks, dueDate }: ProjectMetricsProps) => {
-  const completedTasks = tasks.filter(task => task.status === 'completed').length;
-  const progress = tasks.length === 0 ? 0 : Math.round((completedTasks / tasks.length) * 100);
+const ProjectMetrics = ({ projectId, dueDate }: ProjectMetricsProps) => {
+  const { data } = useQuery({
+    queryKey: ['tasks', projectId],
+    enabled: true,
+    queryFn: async ({ signal }) => {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}/tasks`, { signal });
+
+      if (!response.ok) throw new Error(`Can't fetch tasks`);
+
+      const tasks: Task[] = await response.json();
+
+      return { tasks };
+    }
+  });
+  const completedTasks = data?.tasks.filter(task => task.status === 'completed').length;
+  const progress = data?.tasks.length === 0 ? 0 : Math.round((completedTasks / data?.tasks.length) * 100);
   const daysRemaining = getDaysRemaining(dueDate);
   const timelineText =
     daysRemaining < 0
@@ -27,7 +41,7 @@ const ProjectMetrics = ({ tasks, dueDate }: ProjectMetricsProps) => {
       type: 'completion',
       value: {
         completed: completedTasks,
-        total: tasks.length,
+        total: data?.tasks.length,
       },
     },
     {

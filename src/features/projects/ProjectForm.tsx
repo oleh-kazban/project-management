@@ -31,7 +31,7 @@ const ProjectForm = () => {
       return { project };
     },
   });
-  const createProjectMutation = useMutation({
+  const dataProjectMutation = useMutation({
     mutationFn: async (payload: ProjectData | Project) => {
       const isEditing = 'id' in payload;
       const url = isEditing
@@ -41,12 +41,12 @@ const ProjectForm = () => {
       const projectData: Project = isEditing
         ? { ...payload, updatedAt: new Date().toISOString() }
         : {
-            ...payload,
-            id: crypto.randomUUID(),
-            status: 'todo',
-            createdAt: new Date().toISOString(),
-            updatedAt: null,
-          };
+          ...payload,
+          id: crypto.randomUUID(),
+          status: 'todo',
+          createdAt: new Date().toISOString(),
+          updatedAt: null,
+        };
 
       const response = await fetch(url, {
         method,
@@ -82,7 +82,7 @@ const ProjectForm = () => {
   });
 
   const onSubmit = (formData: ProjectData) => {
-    createProjectMutation.mutate(data?.project ? { ...data.project, ...formData } : formData);
+    dataProjectMutation.mutate(data?.project ? { ...data.project, ...formData } : formData);
   };
 
   return (
@@ -104,7 +104,7 @@ const ProjectForm = () => {
           </button>
           <button
             type="submit"
-            disabled={createProjectMutation.isPending}
+            disabled={dataProjectMutation.isPending}
             className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground transition hover:bg-accent-soft"
           >
             {data?.project ? 'Update' : 'Save'}

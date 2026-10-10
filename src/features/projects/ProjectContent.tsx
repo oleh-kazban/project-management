@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import { Project } from '@pm/types';
-import { Status } from '@pm/types';
 import { Task } from '@pm/types';
 
 import TaskList from '../tasks/TasksList';
@@ -15,8 +14,9 @@ type ProjectContentProps = {
 
 const ProjectContent = ({ projectData, tasksData }: ProjectContentProps) => {
   const [project, setProject] = useState<Project>(projectData);
-  const [tasks, setTasks] = useState<Task[]>(tasksData);
+  // const [tasks, setTasks] = useState<Task[]>(tasksData);
 
+  // todo: use a callback to save the data in db
   const handleProjectStatusChange = (status: Project['status']) => {
     setProject(currentProject => ({
       ...currentProject,
@@ -24,36 +24,11 @@ const ProjectContent = ({ projectData, tasksData }: ProjectContentProps) => {
       updatedAt: new Date().toISOString(),
     }));
   };
-  const handleAddTask = (task: Task) => {
-    setTasks(previousTasks => [...previousTasks, task]);
-  };
-  const handleRemoveTask = (taskId: Task['id']) => {
-    setTasks(previousTasks => previousTasks.filter(task => task.id !== taskId));
-  };
-  const handleTaskStatusChange = (taskId: Task['id'], status: Status) => {
-    setTasks(currentTasks =>
-      currentTasks.map(task => {
-        if (task.id !== taskId) {
-          return task;
-        }
-
-        return {
-          ...task,
-          status,
-        };
-      }),
-    );
-  };
 
   return (
     <>
-      <ProjectDetails project={project} tasks={tasks} onStatusChange={handleProjectStatusChange} />
-      <TaskList
-        tasks={tasks}
-        onAddTask={handleAddTask}
-        onRemoveTask={handleRemoveTask}
-        onTaskStatusChange={handleTaskStatusChange}
-      />
+      <ProjectDetails project={project} onStatusChange={handleProjectStatusChange} />
+      <TaskList projectId={project.id} />
     </>
   );
 };

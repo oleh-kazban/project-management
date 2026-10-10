@@ -13,16 +13,15 @@ import ProjectMetrics from './ProjectMetrics';
 
 type ProjectProps = {
   project: Project;
-  tasks: Task[];
   onStatusChange: (_status: Project['status']) => void;
 };
 
-const ProjectDetails = ({ project, tasks, onStatusChange }: ProjectProps) => {
+const ProjectDetails = ({ project, onStatusChange }: ProjectProps) => {
   const { title, description, dueDate, updatedAt, status } = project;
   const navigate = useNavigate();
 
   const handleEdit = () => {
-    navigate(`/projects/${project.id}/edit`);
+    navigate(`/projects/${project.id}/edit`)
   };
   const handleDelete = () => {
     console.log('handleDelete');
@@ -75,7 +74,7 @@ const ProjectDetails = ({ project, tasks, onStatusChange }: ProjectProps) => {
         </h2>
         <p className="mt-3 text-sm leading-6 text-foreground-muted sm:text-base">{description}</p>
       </div>
-      <ProjectMetrics dueDate={project.dueDate} tasks={tasks} />
+      <ProjectMetrics dueDate={project.dueDate} projectId={project.id} />
     </div>
   );
 };
