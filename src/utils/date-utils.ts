@@ -2,7 +2,7 @@ import { formatDateOnly } from './date-formatter';
 
 export type DayPart = 'morning' | 'afternoon' | 'evening' | 'night';
 
-const hourInMilliseconds = 60 * 60 * 1000;
+const minuteInMilliseconds = 60 * 1000;
 
 export const getDaysRemaining = (dueDate: string) => {
   const today = new Date();
@@ -25,11 +25,17 @@ export const getUpdateDateLabel = (updatedAt: string) => {
     updatedDate.getFullYear() === now.getFullYear() &&
     updatedDate.getMonth() === now.getMonth() &&
     updatedDate.getDate() === now.getDate();
-  const hoursSinceUpdate = (now.getTime() - updatedDate.getTime()) / hourInMilliseconds;
+  const minutesSinceUpdate = Math.floor((now.getTime() - updatedDate.getTime()) / minuteInMilliseconds);
 
-  if (isToday && hoursSinceUpdate >= 0 && hoursSinceUpdate < 8) {
-    const hours = Math.max(1, Math.floor(hoursSinceUpdate));
-    return `${hours} hour${hours === 1 ? '' : 's'} ago`;
+  if (isToday && minutesSinceUpdate < 60) {
+    if (minutesSinceUpdate < 1) return 'just now';
+    return `${minutesSinceUpdate} minute${minutesSinceUpdate === 1 ? '' : 's'} ago`;
+  }
+
+  const hoursSinceUpdate = Math.floor(minutesSinceUpdate / 60);
+
+  if (isToday && hoursSinceUpdate < 8) {
+    return `${hoursSinceUpdate} hour${hoursSinceUpdate === 1 ? '' : 's'} ago`;
   }
 
   if (isToday) {
