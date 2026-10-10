@@ -9,6 +9,7 @@ import Header from './Header';
 import Motivator from './Motivator';
 import PageContainer from './PageContainer';
 import Sidebar from './Sidebar';
+import { Toaster } from 'react-hot-toast';
 
 const SIDEBAR_ID = 'app-sidebar';
 const DESKTOP_QUERY = '(min-width: 1024px)';
@@ -73,30 +74,33 @@ const Layout = () => {
   });
 
   return (
-    <div className="min-h-screen bg-canvas text-foreground">
-      <div className="flex min-h-screen w-full">
-        <Sidebar id={SIDEBAR_ID} isOpen={isSidebarOpen} items={data?.projects ?? []} />
-        {isSidebarOpen && (
-          <div
-            aria-hidden="true"
-            className="fixed inset-0 z-30 bg-canvas/70 lg:hidden"
-            onClick={() => setIsSidebarOpen(false)}
-          />
-        )}
+    <>
+      <div className="min-h-screen bg-canvas text-foreground">
+        <div className="flex min-h-screen w-full">
+          <Sidebar id={SIDEBAR_ID} isOpen={isSidebarOpen} items={data?.projects ?? []} />
+          {isSidebarOpen && (
+            <div
+              aria-hidden="true"
+              className="fixed inset-0 z-30 bg-canvas/70 lg:hidden"
+              onClick={() => setIsSidebarOpen(false)}
+            />
+          )}
 
-        <main className="min-w-0 flex-1">
-          <Header
-            isSidebarOpen={isSidebarOpen}
-            sidebarId={SIDEBAR_ID}
-            onSidebarToggle={() => setIsSidebarOpen(isOpen => !isOpen)}
-          />
-          <PageContainer>
-            <Outlet />
-            <Motivator phrase={motivationalQuote} />
-          </PageContainer>
-        </main>
+          <main className="min-w-0 flex-1">
+            <Header
+              isSidebarOpen={isSidebarOpen}
+              sidebarId={SIDEBAR_ID}
+              onSidebarToggle={() => setIsSidebarOpen(isOpen => !isOpen)}
+            />
+            <PageContainer>
+              <Outlet />
+              <Motivator phrase={motivationalQuote} />
+            </PageContainer>
+          </main>
+        </div>
       </div>
-    </div>
+      <Toaster />
+    </>
   );
 };
 
