@@ -2,9 +2,9 @@ import { useState } from 'react';
 
 import ProjectDetails from './ProjectDetails';
 import { Project } from '../../types/project';
+import { Status } from '../../types/status';
 import { Task } from '../../types/task';
 import TaskList from '../tasks/TasksList';
-import { Status } from '../../types/status';
 
 type ProjectContentProps = {
   projectData: Project;

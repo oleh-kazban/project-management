@@ -13,7 +13,6 @@ const ProjectView = () => {
   const { projectId } = useParams();
 
   // Track projectId to reset state during render when it changes
-  const [currentProjectId, setCurrentProjectId] = useState(projectId);
   const [projectData, setProjectData] = useState<Project | null>(null);
   const [projectTasksData, setProjectTasksData] = useState<Task[]>([]);
   const [isLoading, setIsLoading] = useState(!!projectId);
