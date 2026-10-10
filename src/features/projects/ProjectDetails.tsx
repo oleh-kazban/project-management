@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router';
 
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import type { Project } from '@pm/types';
 import { DotsFloatingMenu, DotsFloatingMenuOption } from '@pm/ui';
 import { FloatingMenu } from '@pm/ui';
@@ -9,7 +11,6 @@ import { formatDateOnly } from '../../utils/date-formatter';
 import { getUpdateDateLabel } from '../../utils/date-utils';
 
 import ProjectMetrics from './ProjectMetrics';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 type ProjectProps = {
   project: Project;
@@ -34,7 +35,7 @@ const ProjectDetails = ({ project }: ProjectProps) => {
   };
   const handleStatusChange = value => {
     updateProjectStatusChange.mutate(value);
-  }
+  };
   const projectActionsOptions = [
     { label: 'Edit', onSelect: handleEdit },
     { label: 'Duplicate', onSelect: handleDuplicate },
@@ -52,9 +53,9 @@ const ProjectDetails = ({ project }: ProjectProps) => {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/projects/${id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) throw new Error(`Can't update project status`);
@@ -62,11 +63,11 @@ const ProjectDetails = ({ project }: ProjectProps) => {
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['project'] })
+      queryClient.invalidateQueries({ queryKey: ['project'] });
     },
     onError: error => {
       console.log('Error: ', error);
-    }
+    },
   });
 
   return (

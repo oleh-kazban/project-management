@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { Project } from '@pm/types';
 
 import TaskList from '../tasks/TasksList';
