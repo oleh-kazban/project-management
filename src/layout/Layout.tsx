@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { Outlet } from 'react-router';
 
 import { useQuery } from '@tanstack/react-query';
@@ -9,7 +10,6 @@ import Header from './Header';
 import Motivator from './Motivator';
 import PageContainer from './PageContainer';
 import Sidebar from './Sidebar';
-import { Toaster } from 'react-hot-toast';
 
 const SIDEBAR_ID = 'app-sidebar';
 const DESKTOP_QUERY = '(min-width: 1024px)';
