@@ -16,4 +16,4 @@ export type ProjectsInfo = {
   title: string;
   tasks: Task[];
   status: Status;
-}
+};

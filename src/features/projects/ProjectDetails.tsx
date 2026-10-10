@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router';
+
 import type { Project } from '@pm/types';
 import type { Task } from '@pm/types';
 import { DotsFloatingMenu, DotsFloatingMenuOption } from '@pm/ui';
@@ -8,7 +10,6 @@ import { formatDateOnly } from '../../utils/date-formatter';
 import { getUpdateDateLabel } from '../../utils/date-utils';
 
 import ProjectMetrics from './ProjectMetrics';
-import { useNavigate } from 'react-router';
 
 type ProjectProps = {
   project: Project;

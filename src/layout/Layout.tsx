@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router';
 
+import { useQuery } from '@tanstack/react-query';
+
+import { ProjectsInfo } from '@pm/types';
+
 import Header from './Header';
 import Motivator from './Motivator';
 import PageContainer from './PageContainer';
 import Sidebar from './Sidebar';
-import { useQuery } from '@tanstack/react-query';
-import { ProjectsInfo } from '@pm/types';
 
 const SIDEBAR_ID = 'app-sidebar';
 const DESKTOP_QUERY = '(min-width: 1024px)';
@@ -52,7 +54,9 @@ const Layout = () => {
     queryKey: ['projectsInfo'],
     enabled: true,
     queryFn: async ({ signal }) => {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/projects?_embed=tasks`, { signal });
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/projects?_embed=tasks`, {
+        signal,
+      });
 
       if (!response.ok) throw new Error(`Can't load projects data`);
 
@@ -65,7 +69,7 @@ const Layout = () => {
       }));
 
       return { projects };
-    }
+    },
   });
 
   return (
