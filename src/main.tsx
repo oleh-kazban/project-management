@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
 
-import { MutationCache,QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import { type ErrorCode,ErrorCodes } from '@pm/constants/errors';
+import { type ErrorCode, ErrorCodes } from '@pm/constants/errors';
 import { appToast } from '@pm/utils';
 
 import App from './App.tsx';

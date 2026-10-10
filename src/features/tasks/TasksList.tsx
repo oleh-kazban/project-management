@@ -54,7 +54,8 @@ const TaskList = ({ projectId, projectDueDate }: TaskListProps) => {
         signal,
       });
 
-      if (!response.ok) throw new Error(JSON.stringify({ code: 'TASKS_LOAD_FAILED', meta: { projectId } }));
+      if (!response.ok)
+        throw new Error(JSON.stringify({ code: 'TASKS_LOAD_FAILED', meta: { projectId } }));
 
       const tasks: Task[] = await response.json();
 
@@ -90,7 +91,10 @@ const TaskList = ({ projectId, projectDueDate }: TaskListProps) => {
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) throw new Error(JSON.stringify({ code: 'TASK_UPDATE_FAILED', meta: { taskId: payload.id } }));
+      if (!response.ok)
+        throw new Error(
+          JSON.stringify({ code: 'TASK_UPDATE_FAILED', meta: { taskId: payload.id } }),
+        );
 
       return response.json();
     },
@@ -108,7 +112,8 @@ const TaskList = ({ projectId, projectDueDate }: TaskListProps) => {
         },
       });
 
-      if (!response.ok) throw new Error(JSON.stringify({ code: 'TASK_DELETE_FAILED', meta: { taskId } }));
+      if (!response.ok)
+        throw new Error(JSON.stringify({ code: 'TASK_DELETE_FAILED', meta: { taskId } }));
 
       return response.json();
     },

@@ -25,7 +25,10 @@ const ProjectForm = () => {
         signal,
       });
 
-      if (!response.ok) throw new Error(JSON.stringify({ code: 'PROJECT_DETAILS_LOAD_FAILED', meta: { id: projectId } }));
+      if (!response.ok)
+        throw new Error(
+          JSON.stringify({ code: 'PROJECT_DETAILS_LOAD_FAILED', meta: { id: projectId } }),
+        );
 
       const project: Project = await response.json();
 
@@ -57,12 +60,21 @@ const ProjectForm = () => {
         body: JSON.stringify(projectData),
       });
 
-      if (!response.ok) throw new Error(JSON.stringify({ code: isEditing ? 'PROJECT_UPDATE_FAILED' : 'PROJECT_CREATE_FAILED', meta: { id: isEditing ? projectId : '' } }));
+      if (!response.ok)
+        throw new Error(
+          JSON.stringify({
+            code: isEditing ? 'PROJECT_UPDATE_FAILED' : 'PROJECT_CREATE_FAILED',
+            meta: { id: isEditing ? projectId : '' },
+          }),
+        );
 
       return response.json();
     },
     onSuccess: data => {
-      appToast.success('Project saved', `The project was ${projectId ? 'updated' : 'created'} successfully.`);
+      appToast.success(
+        'Project saved',
+        `The project was ${projectId ? 'updated' : 'created'} successfully.`,
+      );
       queryClient.invalidateQueries({ queryKey: ['projects'] });
       queryClient.invalidateQueries({ queryKey: ['projectsInfo'] });
       navigate(`/projects/${data.id}`);

@@ -21,7 +21,8 @@ const ProjectMetrics = ({ projectId, dueDate }: ProjectMetricsProps) => {
         signal,
       });
 
-      if (!response.ok) throw new Error(JSON.stringify({ code: 'TASKS_LOAD_FAILED', meta: { projectId } }));
+      if (!response.ok)
+        throw new Error(JSON.stringify({ code: 'TASKS_LOAD_FAILED', meta: { projectId } }));
 
       const tasks: Task[] = await response.json();
 

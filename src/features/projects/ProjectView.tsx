@@ -19,7 +19,8 @@ const ProjectView = () => {
         signal,
       });
 
-      if (!response.ok) throw new Error(JSON.stringify({ code: 'PROJECT_NOT_FOUND', meta: { id: projectId } }));
+      if (!response.ok)
+        throw new Error(JSON.stringify({ code: 'PROJECT_NOT_FOUND', meta: { id: projectId } }));
 
       const project = await response.json();
 
