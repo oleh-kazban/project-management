@@ -2,12 +2,13 @@ import { useState } from 'react';
 
 import CreateTask from './CreateTask';
 import TaskDetails from './TaskDetails';
-import type { Task, TaskStatus } from '../../types/task';
+import type { Task } from '../../types/task';
+import { Status } from '../../types/status';
 
 type TaskListProps = {
   onAddTask: (_task: Task) => void;
   onRemoveTask: (_taskId: Task['id']) => void;
-  onTaskStatusChange: (_taskId: Task['id'], _status: TaskStatus) => void;
+  onTaskStatusChange: (_taskId: Task['id'], _status: Status) => void;
   tasks: Task[];
 };
 
