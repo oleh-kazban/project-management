@@ -19,14 +19,6 @@ const ProjectView = () => {
   const [isLoading, setIsLoading] = useState(!!projectId);
   const [error, setError] = useState<string | null>(null);
 
-  if (projectId !== currentProjectId) {
-    setCurrentProjectId(projectId);
-    setProjectData(null);
-    setProjectTasksData([]);
-    setIsLoading(!!projectId);
-    setError(null);
-  }
-
   useEffect(() => {
     if (!projectId) return;
 

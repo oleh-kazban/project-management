@@ -31,7 +31,7 @@ const TaskList = ({ tasks, onAddTask, onRemoveTask, onTaskStatusChange }: TaskLi
           </p>
         </div>
         <button
-          className="inline-flex items-center justify-center gap-2 rounded-xl border border-default/10 px-3.5 py-2 text-sm font-medium text-foreground-secondary transition hover:bg-foreground/5 hover:text-foreground"
+          className="inline-flex shrink-0 whitespace-nowrap items-center justify-center gap-2 rounded-xl border border-default/10 px-3.5 py-2 text-sm font-medium text-foreground-secondary transition hover:bg-foreground/5 hover:text-foreground"
           onClick={handleShowAddTask}
         >
           <svg

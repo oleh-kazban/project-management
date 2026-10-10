@@ -44,7 +44,7 @@ const CreateTask = ({ dueDate, onAddTask }: CreateTaskProps) => {
       <button
         disabled={!title.trim()}
         type="submit"
-        className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground transition hover:bg-accent-soft disabled:cursor-not-allowed disabled:bg-foreground-muted/20 disabled:text-foreground-faint disabled:hover:bg-foreground-muted/20"
+        className="shrink-0 whitespace-nowrap rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground transition hover:bg-accent-soft disabled:cursor-not-allowed disabled:bg-foreground-muted/20 disabled:text-foreground-faint disabled:hover:bg-foreground-muted/20"
       >
         Add task
       </button>

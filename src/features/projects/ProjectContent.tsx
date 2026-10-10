@@ -2,8 +2,9 @@ import { useState } from 'react';
 
 import ProjectDetails from './ProjectDetails';
 import { Project } from '../../types/project';
-import { Task, TaskStatus } from '../../types/task';
+import { Task } from '../../types/task';
 import TaskList from '../tasks/TasksList';
+import { Status } from '../../types/status';
 
 type ProjectContentProps = {
   projectData: Project;
@@ -27,7 +28,7 @@ const ProjectContent = ({ projectData, tasksData }: ProjectContentProps) => {
   const handleRemoveTask = (taskId: Task['id']) => {
     setTasks(previousTasks => previousTasks.filter(task => task.id !== taskId));
   };
-  const handleTaskStatusChange = (taskId: Task['id'], status: TaskStatus) => {
+  const handleTaskStatusChange = (taskId: Task['id'], status: Status) => {
     setTasks(currentTasks =>
       currentTasks.map(task => {
         if (task.id !== taskId) {
