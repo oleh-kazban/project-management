@@ -8,6 +8,7 @@ import { formatDateOnly } from '../../utils/date-formatter';
 import { getUpdateDateLabel } from '../../utils/date-utils';
 
 import ProjectMetrics from './ProjectMetrics';
+import { useNavigate } from 'react-router';
 
 type ProjectProps = {
   project: Project;
@@ -17,8 +18,10 @@ type ProjectProps = {
 
 const ProjectDetails = ({ project, tasks, onStatusChange }: ProjectProps) => {
   const { title, description, dueDate, updatedAt, status } = project;
+  const navigate = useNavigate();
+
   const handleEdit = () => {
-    console.log('handleEdit');
+    navigate(`/projects/${project.id}/edit`);
   };
   const handleDelete = () => {
     console.log('handleDelete');

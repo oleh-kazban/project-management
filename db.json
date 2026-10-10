@@ -53,6 +53,24 @@
       "createdAt": "2022-11-01T01:16:15.223Z",
       "updatedAt": "2025-11-05T11:26:33.313Z",
       "description": "Irure ut eiusmod velit adipisicing eu ea do adipisicing eu dolore sunt cillum nulla. Non pariatur laborum consectetur ullamco pariatur consectetur eu amet cupidatat elit ea excepteur nisi cupidatat. Et sit occaecat do ex duis esse esse exercitation pariatur incididunt cillum."
+    },
+    {
+      "id": "8e145fac-f83c-4172-a860-dc9a14c5cb5e",
+      "title": "Learn React",
+      "description": "Be a flexible developer, know more",
+      "dueDate": "2027-02-20",
+      "status": "todo",
+      "createdAt": "2026-10-10T11:56:19.576Z",
+      "updatedAt": null
+    },
+    {
+      "id": "01de024f-fafc-48f0-ab76-68386a87078f",
+      "title": "Drink coffee and relax",
+      "description": "Just relax :)",
+      "dueDate": "2026-10-24",
+      "status": "todo",
+      "createdAt": "2026-10-10T12:31:16.436Z",
+      "updatedAt": "2026-10-10T13:14:58.375Z"
     }
   ],
   "tasks": [

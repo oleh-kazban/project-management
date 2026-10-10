@@ -5,6 +5,8 @@ import Header from './Header';
 import Motivator from './Motivator';
 import PageContainer from './PageContainer';
 import Sidebar from './Sidebar';
+import { useQuery } from '@tanstack/react-query';
+import { ProjectsInfo } from '@pm/types';
 
 const SIDEBAR_ID = 'app-sidebar';
 const DESKTOP_QUERY = '(min-width: 1024px)';
@@ -28,7 +30,6 @@ const Layout = () => {
   const [motivationalQuote] = useState(
     () => motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)],
   );
-  const [sidebarItems, setSidebarItems] = useState([]);
 
   useEffect(() => {
     if (!isSidebarOpen) {
@@ -47,24 +48,30 @@ const Layout = () => {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [isSidebarOpen]);
 
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/projects?_embed=tasks`)
-      .then(res => res.json())
-      .then(data => {
-        const items = data.map(({ title, id, tasks, status }: any) => ({
-          title,
-          id,
-          status,
-          tasks: tasks.length,
-        }));
-        setSidebarItems(items);
-      });
-  }, []);
+  const { data } = useQuery({
+    queryKey: ['projectsInfo'],
+    enabled: true,
+    queryFn: async ({ signal }) => {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/projects?_embed=tasks`, { signal });
+
+      if (!response.ok) throw new Error(`Can't load projects data`);
+
+      const projectsInfo: ProjectsInfo[] = await response.json();
+      const projects = projectsInfo.map(({ title, id, tasks, status }) => ({
+        title,
+        id,
+        status,
+        tasks: tasks.length,
+      }));
+
+      return { projects };
+    }
+  });
 
   return (
     <div className="min-h-screen bg-canvas text-foreground">
       <div className="flex min-h-screen w-full">
-        <Sidebar id={SIDEBAR_ID} isOpen={isSidebarOpen} items={sidebarItems} />
+        <Sidebar id={SIDEBAR_ID} isOpen={isSidebarOpen} items={data?.projects ?? []} />
         {isSidebarOpen && (
           <div
             aria-hidden="true"
