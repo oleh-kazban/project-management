@@ -9,15 +9,16 @@ import { formatDateOnly } from '../../utils/date-formatter';
 import { getUpdateDateLabel } from '../../utils/date-utils';
 
 import ProjectMetrics from './ProjectMetrics';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 type ProjectProps = {
   project: Project;
-  onStatusChange: (_status: Project['status']) => void;
 };
 
-const ProjectDetails = ({ project, onStatusChange }: ProjectProps) => {
-  const { title, description, dueDate, updatedAt, status } = project;
+const ProjectDetails = ({ project }: ProjectProps) => {
+  const { id, title, description, dueDate, updatedAt, status } = project;
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const handleEdit = () => {
     navigate(`/projects/${project.id}/edit`);
@@ -31,6 +32,9 @@ const ProjectDetails = ({ project, onStatusChange }: ProjectProps) => {
   const handleArchive = () => {
     console.log('handleArchive');
   };
+  const handleStatusChange = value => {
+    updateProjectStatusChange.mutate(value);
+  }
   const projectActionsOptions = [
     { label: 'Edit', onSelect: handleEdit },
     { label: 'Duplicate', onSelect: handleDuplicate },
@@ -42,6 +46,29 @@ const ProjectDetails = ({ project, onStatusChange }: ProjectProps) => {
     },
   ] satisfies DotsFloatingMenuOption[];
 
+  const updateProjectStatusChange = useMutation({
+    mutationFn: async (status: string) => {
+      const payload = { ...project, status, updatedAt: new Date().toISOString() };
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/projects/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) throw new Error(`Can't update project status`);
+
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['project'] })
+    },
+    onError: error => {
+      console.log('Error: ', error);
+    }
+  });
+
   return (
     <div className="border-b border-default/10 p-5 sm:p-7 lg:p-8 xl:border-b-0 xl:border-r">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -51,7 +78,7 @@ const ProjectDetails = ({ project, onStatusChange }: ProjectProps) => {
             options={statusOptions}
             value={status}
             ariaLabel="Change project status"
-            onChange={onStatusChange}
+            onChange={handleStatusChange}
           />
           <span className="text-xs text-foreground-subtle">
             Updated {getUpdateDateLabel(updatedAt)}

@@ -11,21 +11,12 @@ type ProjectContentProps = {
 };
 
 const ProjectContent = ({ projectData }: ProjectContentProps) => {
-  const [project, setProject] = useState<Project>(projectData);
-
-  // todo: use a callback to save the data in db
-  const handleProjectStatusChange = (status: Project['status']) => {
-    setProject(currentProject => ({
-      ...currentProject,
-      status,
-      updatedAt: new Date().toISOString(),
-    }));
-  };
+  const { id, dueDate } = projectData;
 
   return (
     <>
-      <ProjectDetails project={project} onStatusChange={handleProjectStatusChange} />
-      <TaskList projectId={project.id} projectDueDate={project.dueDate} />
+      <ProjectDetails project={projectData} />
+      <TaskList projectId={id} projectDueDate={dueDate} />
     </>
   );
 };
