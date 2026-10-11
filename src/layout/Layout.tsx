@@ -14,24 +14,9 @@ import Sidebar from './Sidebar';
 const SIDEBAR_ID = 'app-sidebar';
 const DESKTOP_QUERY = '(min-width: 1024px)';
 
-const motivationalQuotes = [
-  'A little progress every day adds up.',
-  'Done is better than perfect.',
-  'The secret of getting ahead is getting started.',
-  'Every great project is built one task at a time.',
-  'Focus on being productive, not just busy.',
-  'Small steps lead to massive achievements.',
-  'Make it work, make it right, make it fast.',
-  'Success is the sum of small efforts repeated daily.',
-  "Don't stop when you're tired. Stop when you're done.",
-];
-
 const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(
     () => window.matchMedia(DESKTOP_QUERY).matches,
-  );
-  const [motivationalQuote] = useState(
-    () => motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)],
   );
 
   useEffect(() => {
@@ -94,7 +79,7 @@ const Layout = () => {
             />
             <PageContainer>
               <Outlet />
-              <Motivator phrase={motivationalQuote} />
+              <Motivator />
             </PageContainer>
           </main>
         </div>

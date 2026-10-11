@@ -135,12 +135,13 @@
     },
     {
       "id": "7bf307f0-eee2-4491-b0c4-376458a6b7b1",
-      "title": "ad nulla aute dolor culpa culpa",
-      "status": "completed",
+      "title": "ad nulla aute dolor culpa culpa 123",
+      "status": "todo",
       "createdAt": "2022-02-16T00:18:42.874Z",
       "projectId": "4ca700cb-9558-4832-bf92-8ffe1b2e8168",
-      "completedAt": "2025-08-04T22:37:37.324Z",
-      "dueDate": "2027-05-12"
+      "completedAt": null,
+      "dueDate": "2027-05-12",
+      "updatedAt": "2026-10-11T14:18:35.931Z"
     },
     {
       "id": "11981be3-3d29-48f2-9536-67bf2e854727",
@@ -155,11 +156,12 @@
     {
       "id": "37bc4ba6-383d-49e7-9898-2b32cf936615",
       "title": "labore enim aliqua",
-      "status": "completed",
+      "status": "in-progress",
       "createdAt": "2022-12-16T06:13:58.133Z",
       "projectId": "711afd01-3838-4850-a3f8-f8656197169a",
-      "completedAt": "2025-05-29T02:12:13.565Z",
-      "dueDate": "2027-03-03"
+      "completedAt": null,
+      "dueDate": "2027-03-03",
+      "updatedAt": "2026-10-11T14:00:49.914Z"
     }
   ]
 }
