@@ -1,6 +1,6 @@
-import { useMutationState } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { useLocation } from 'react-router';
+
+import { useMutationState } from '@tanstack/react-query';
 
 const motivationalQuotes = [
   'A little progress every day adds up.',
@@ -14,25 +14,19 @@ const motivationalQuotes = [
   "Don't stop when you're tired. Stop when you're done.",
 ];
 
-const getRandomQuote = (current?: string) => {
-  const available = motivationalQuotes.filter(q => q !== current);
-
-  return available[Math.floor(Math.random() * available.length)];
-}
+const getSeed = (str: string) => [...str].reduce((acc, char) => acc + char.charCodeAt(0), 0);
 
 const Motivator = () => {
   const location = useLocation();
   const mutationCount = useMutationState({
     filters: { status: 'success' },
-    select: (mutation) => mutation.state.submittedAt,
+    select: mutation => mutation.state.submittedAt,
   }).length;
-  const [phrase, setPhrase] = useState(() => getRandomQuote());
 
-  useEffect(() => {
-    setPhrase(prev => getRandomQuote(prev));
-  }, [location.key, mutationCount])
+  const quoteIndex = (getSeed(location.key) + mutationCount) % motivationalQuotes.length;
+  const phrase = motivationalQuotes[quoteIndex];
 
-  return (<p className="mt-5 text-center text-xs text-foreground-faint">{phrase}</p>)
+  return <p className="mt-5 text-center text-xs text-foreground-faint">{phrase}</p>;
 };
 
 export default Motivator;
