@@ -1,5 +1,8 @@
 # Project Management
 
+[![CI](https://github.com/oleh-kazban/project-management/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/oleh-kazban/project-management/actions/workflows/ci.yaml)
+[![PR Validation](https://github.com/oleh-kazban/project-management/actions/workflows/pr-validation.yaml/badge.svg)](https://github.com/oleh-kazban/project-management/actions/workflows/pr-validation.yaml)
+
 A project management app built with React, TypeScript, Vite, and Tailwind CSS. It includes a project dashboard with project details and metrics, plus task creation, removal, and status updates.
 
 ## Screenshots
@@ -25,36 +28,41 @@ Install dependencies and start the development server along with the mock API se
 
 ```sh
 pnpm install
-pnpm dev
-pnpm server
+pnpm start
+pnpm start:api
 ```
 
 Vite prints the local development URL in the terminal.
 
 ## Available scripts
 
-| Command             | Description                                        |
-| ------------------- | -------------------------------------------------- |
-| `pnpm dev`          | Start the Vite development server.                 |
-| `pnpm server`       | Start the json-server mock API on port 3000.       |
-| `pnpm build`        | Create a production build in `dist/`.              |
-| `pnpm preview`      | Preview the production build locally.              |
-| `pnpm check:cycles` | Check for circular dependencies in `src/`.         |
-| `pnpm lint`         | Check JavaScript and TypeScript files with ESLint. |
-| `pnpm lint:fix`     | Run ESLint and apply available automatic fixes.    |
-| `pnpm format`       | Format project files with Prettier.                |
-| `pnpm format:check` | Check formatting without changing files.           |
+| Command                   | Description                                                       |
+| ------------------------- | ----------------------------------------------------------------- |
+| `pnpm start`              | Start the Vite development server via Nx.                         |
+| `pnpm start:api`          | Start the json-server mock API on port 3000.                      |
+| `pnpm build`              | Create a production build in `dist/` with Nx computation caching. |
+| `pnpm preview`            | Preview the production build locally.                             |
+| `pnpm test`               | Run unit tests across projects.                                   |
+| `pnpm test:affected`      | Run tests only for affected projects relative to `master`.        |
+| `pnpm lint`               | Lint projects with ESLint via Nx.                                 |
+| `pnpm lint:affected`      | Lint only projects affected relative to `master`.                 |
+| `pnpm lint:fix`           | Run ESLint and apply available automatic fixes.                   |
+| `pnpm check:cycles`       | Check for circular dependencies in `src/`.                        |
+| `pnpm format`             | Format all project files with Prettier via Nx.                    |
+| `pnpm format:uncommitted` | Format only uncommitted files with Prettier via Nx.               |
+| `pnpm format:check`       | Check formatting without changing files.                          |
+| `pnpm dep-graph`          | Open the interactive Nx dependency graph.                         |
 
 ## Pre-commit checks
 
-Husky runs the following commands before each commit:
+Husky runs the following commands before each commit (with `NX_DAEMON=false` to ensure fast subshell execution):
 
 ```sh
-pnpm lint:fix
-pnpm format
+pnpm nx affected -t lint:fix
+pnpm format:uncommitted
 ```
 
-These commands apply automatic lint fixes and formatting across the project. Review and stage any resulting changes before committing.
+These commands apply automatic lint fixes to affected code and format only uncommitted files. Review and stage any resulting changes before committing.
 
 ## Pre-push checks
 
@@ -90,8 +98,10 @@ ESLint enforces import groups in this order, with a blank line between groups:
 │   └── main.tsx            # Application entry point
 ├── eslint.config.js        # ESLint flat configuration
 ├── index.html              # Vite HTML entry
+├── nx.json                 # Nx workspace configuration & target defaults
 ├── package.json
 ├── pnpm-lock.yaml
+├── project.json            # Nx project targets definition
 ├── tailwind.config.js
 └── vite.config.js
 ```
