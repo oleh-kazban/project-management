@@ -1,2 +1,4 @@
-pnpm lint:fix
-pnpm format
+export NX_DAEMON=false
+
+pnpm nx affected -t lint:fix
+pnpm format:uncommitted
