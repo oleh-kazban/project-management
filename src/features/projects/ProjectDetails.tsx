@@ -15,7 +15,8 @@ type ProjectProps = {
 };
 
 const ProjectDetails = ({ project }: ProjectProps) => {
-  const { id, title, description, dueDate, updatedAt, status, isArchived, archivedAt, createdAt } = project;
+  const { id, title, description, dueDate, updatedAt, status, isArchived, archivedAt, createdAt } =
+    project;
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
@@ -52,13 +53,13 @@ const ProjectDetails = ({ project }: ProjectProps) => {
     { label: 'Duplicate', onSelect: handleDuplicate },
     project.isArchived
       ? {
-        label: 'Restore',
-        onSelect: handleRestore,
-      }
+          label: 'Restore',
+          onSelect: handleRestore,
+        }
       : {
-        label: 'Archive',
-        onSelect: handleArchive,
-      },
+          label: 'Archive',
+          onSelect: handleArchive,
+        },
     {
       label: 'Delete',
       onSelect: handleDelete,
@@ -210,7 +211,9 @@ const ProjectDetails = ({ project }: ProjectProps) => {
           )}
           {!isArchived && (
             <span className="text-xs text-foreground-subtle">
-              {updatedAt ? `Updated ${getUpdateDateLabel(updatedAt)}` : `Created ${getUpdateDateLabel(createdAt)}`}
+              {updatedAt
+                ? `Updated ${getUpdateDateLabel(updatedAt)}`
+                : `Created ${getUpdateDateLabel(createdAt)}`}
             </span>
           )}
         </div>
