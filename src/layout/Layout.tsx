@@ -40,9 +40,12 @@ const Layout = () => {
     queryKey: ['projectsInfo'],
     enabled: true,
     queryFn: async ({ signal }) => {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/projects?_embed=tasks`, {
-        signal,
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/projects?isArchived_ne=true&_embed=tasks`,
+        {
+          signal,
+        },
+      );
 
       if (!response.ok) throw new Error(JSON.stringify({ code: 'PROJECTS_LOAD_FAILED' }));
 

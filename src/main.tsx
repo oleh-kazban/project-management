@@ -13,6 +13,14 @@ import App from './App.tsx';
 import './index.css';
 
 const handleGlobalError = (error: Error) => {
+  if (error.message === 'Failed to fetch' || !navigator.onLine) {
+    appToast.error(
+      'Connection failed',
+      'Could not reach the server. Please check your connection.',
+    );
+    return;
+  }
+
   try {
     const parsed = JSON.parse(error.message);
     const code = parsed.code as ErrorCode;
@@ -26,12 +34,13 @@ const handleGlobalError = (error: Error) => {
         });
       }
       appToast.error(errorDetails.title, desc);
-    } else {
-      appToast.error('An error occurred', error.message);
+      return;
     }
   } catch {
-    appToast.error('An error occurred', error.message);
+    // Fallback for unexpected runtime errors
   }
+
+  appToast.error('An error occurred', error.message);
 };
 
 const queryClient = new QueryClient({

@@ -20,9 +20,8 @@ const defaultOptionClassName =
 const DotsFloatingMenu = ({ options, ariaLabel, alignment = 'end' }: DotsFloatingMenuProps) => {
   const menuId = useId();
   const optionRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const { isOpen, close, toggle, popupPosition, containerRef, triggerRef, popupRef } = usePopup({
-    alignment,
-  });
+  const { isOpen, close, toggle, popupPosition, containerRef, triggerRef, popupRef } =
+    usePopup(alignment);
   const isPositioned = popupPosition !== null;
 
   useEffect(() => {

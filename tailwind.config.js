@@ -3,6 +3,15 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,tsx}'],
   theme: {
     extend: {
+      keyframes: {
+        'fade-in': {
+          '0%': { opacity: '0', transform: 'translateY(4px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+      },
+      animation: {
+        'fade-in': 'fade-in 250ms ease-out forwards',
+      },
       colors: {
         canvas: 'rgb(var(--color-canvas) / <alpha-value>)',
         surface: 'rgb(var(--color-surface) / <alpha-value>)',

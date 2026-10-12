@@ -9,6 +9,9 @@ export type Project = {
   updatedAt: string | null; // ISO 8601 timestamp
   dueDate: string; // YYYY-MM-DD
   status: Status;
+
+  isArchived: boolean;
+  archivedAt: string | null; // ISO 8601 timestamp
 };
 
 export type ProjectsInfo = {

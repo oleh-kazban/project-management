@@ -1,3 +1,11 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+
+import { useQuery } from '@tanstack/react-query';
+
+import { Project } from '@pm/types';
+import { Autosuggest, useDebounce } from '@pm/ui';
+
 import UserProfile from './UserProfile';
 
 type HeaderProps = {
@@ -7,6 +15,24 @@ type HeaderProps = {
 };
 
 const Header = ({ isSidebarOpen, sidebarId, onSidebarToggle }: HeaderProps) => {
+  const [search, setSearch] = useState('');
+  const debouncedSearch = useDebounce(search, 300);
+  const navigate = useNavigate();
+  const { data: searchResults = [], isLoading } = useQuery({
+    queryKey: ['projects', 'search', debouncedSearch],
+    queryFn: async ({ signal }) => {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/projects?title_like=${encodeURIComponent(debouncedSearch)}`,
+        { signal },
+      );
+
+      if (!res.ok) throw new Error(JSON.stringify({ code: 'PROJECTS_SEARCH_FAILED' }));
+
+      return (await res.json()) as Project[];
+    },
+    enabled: debouncedSearch.trim().length >= 3,
+  });
+
   return (
     <header className="flex h-[72px] items-center justify-between gap-3 border-b border-default/10 px-4 sm:px-6 lg:px-8 xl:px-12">
       <div className="flex min-w-0 items-center gap-4">
@@ -39,25 +65,30 @@ const Header = ({ isSidebarOpen, sidebarId, onSidebarToggle }: HeaderProps) => {
         </nav>
       </div>
       <div className="flex items-center gap-3">
-        <label className="relative block">
-          <span className="sr-only">Search projects and tasks</span>
-          <svg
-            aria-hidden="true"
-            className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground-subtle"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
-          >
-            <circle cx="11" cy="11" r="7" />
-            <path strokeLinecap="round" d="m20 20-4-4" />
-          </svg>
-          <input
-            type="search"
-            placeholder="Search"
-            className="w-36 rounded-xl sm:w-56 border border-default/10 bg-foreground/[0.03] py-2 pl-9 pr-3 text-sm text-foreground-secondary outline-none placeholder:text-foreground-faint focus:border-accent/40"
-          />
-        </label>
+        <Autosuggest<Project>
+          className="w-36 focus-within:w-60 sm:w-56 sm:focus-within:w-80 transition-[width] duration-300 ease-in-out"
+          value={search}
+          onChange={setSearch}
+          items={searchResults}
+          isLoading={isLoading}
+          getOptionKey={project => project.id}
+          getOptionLabel={project => project.title}
+          renderOption={project => (
+            <>
+              <span className="truncate">{project.title}</span>
+              {project.isArchived && (
+                <span className="shrink-0 rounded-full border border-amber-500/20 bg-amber-500/10 px-1.5 py-0.5 text-[10px] font-medium text-amber-400">
+                  Archived
+                </span>
+              )}
+            </>
+          )}
+          onSelect={project => {
+            navigate(`/projects/${project.id}`);
+            setSearch('');
+          }}
+          placeholder="Search projects..."
+        />
         <button
           type="button"
           aria-label="Notifications"

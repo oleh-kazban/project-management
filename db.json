@@ -7,7 +7,9 @@
       "dueDate": "2027-03-12",
       "createdAt": "2022-04-19T03:54:25.525Z",
       "updatedAt": "2026-10-10T17:29:25.429Z",
-      "description": "Pariatur eiusmod exercitation magna nisi et id commodo Lorem. Proident ad elit ad officia esse eu. Est cupidatat ut adipisicing dolor commodo incididunt quis ad sint proident ullamco."
+      "description": "Pariatur eiusmod exercitation magna nisi et id commodo Lorem. Proident ad elit ad officia esse eu. Est cupidatat ut adipisicing dolor commodo incididunt quis ad sint proident ullamco.",
+      "isArchived": false,
+      "archivedAt": null
     },
     {
       "id": "654fa746-ca62-4305-bc87-67f2a22945bc",
@@ -16,7 +18,9 @@
       "dueDate": "2027-10-18",
       "createdAt": "2022-10-22T16:17:59.682Z",
       "updatedAt": "2025-03-16T23:22:22.908Z",
-      "description": "Irure officia adipisicing elit incididunt. Do aute nostrud cillum sit. Velit id sint voluptate esse consectetur nulla labore do pariatur."
+      "description": "Irure officia adipisicing elit incididunt. Do aute nostrud cillum sit. Velit id sint voluptate esse consectetur nulla labore do pariatur.",
+      "isArchived": false,
+      "archivedAt": null
     },
     {
       "id": "94ac9f91-11fd-4bb6-99dd-62b5e4f994fb",
@@ -25,7 +29,9 @@
       "dueDate": "2027-09-18",
       "createdAt": "2022-11-08T00:29:32.959Z",
       "updatedAt": "2025-12-27T20:43:09.634Z",
-      "description": "Id laborum nostrud in reprehenderit duis in. Ex officia voluptate ullamco consequat. Esse ea laborum sint occaecat tempor non magna elit."
+      "description": "Id laborum nostrud in reprehenderit duis in. Ex officia voluptate ullamco consequat. Esse ea laborum sint occaecat tempor non magna elit.",
+      "isArchived": false,
+      "archivedAt": null
     },
     {
       "id": "4ca700cb-9558-4832-bf92-8ffe1b2e8168",
@@ -34,7 +40,9 @@
       "dueDate": "2027-05-12",
       "createdAt": "2022-06-06T02:37:24.376Z",
       "updatedAt": "2025-08-28T03:24:35.992Z",
-      "description": "Ullamco deserunt ullamco aliqua laborum irure sunt fugiat pariatur officia ex et. Adipisicing ea deserunt commodo anim dolor labore pariatur laboris et ea enim anim cillum cillum. Nisi do duis aliquip amet in Lorem velit nulla."
+      "description": "Ullamco deserunt ullamco aliqua laborum irure sunt fugiat pariatur officia ex et. Adipisicing ea deserunt commodo anim dolor labore pariatur laboris et ea enim anim cillum cillum. Nisi do duis aliquip amet in Lorem velit nulla.",
+      "isArchived": false,
+      "archivedAt": null
     },
     {
       "id": "fde0cd35-a512-4765-bd7c-30e677e96d96",
@@ -43,7 +51,9 @@
       "dueDate": "2027-04-02",
       "createdAt": "2022-07-16T02:05:21.200Z",
       "updatedAt": "2025-02-01T05:06:19.169Z",
-      "description": "Ea consequat elit ullamco ea laborum. Exercitation qui nisi veniam fugiat. Sunt elit ea non fugiat."
+      "description": "Ea consequat elit ullamco ea laborum. Exercitation qui nisi veniam fugiat. Sunt elit ea non fugiat.",
+      "isArchived": false,
+      "archivedAt": null
     },
     {
       "id": "711afd01-3838-4850-a3f8-f8656197169a",
@@ -52,25 +62,31 @@
       "dueDate": "2027-03-03",
       "createdAt": "2022-11-01T01:16:15.223Z",
       "updatedAt": "2025-11-05T11:26:33.313Z",
-      "description": "Irure ut eiusmod velit adipisicing eu ea do adipisicing eu dolore sunt cillum nulla. Non pariatur laborum consectetur ullamco pariatur consectetur eu amet cupidatat elit ea excepteur nisi cupidatat. Et sit occaecat do ex duis esse esse exercitation pariatur incididunt cillum."
+      "description": "Irure ut eiusmod velit adipisicing eu ea do adipisicing eu dolore sunt cillum nulla. Non pariatur laborum consectetur ullamco pariatur consectetur eu amet cupidatat elit ea excepteur nisi cupidatat. Et sit occaecat do ex duis esse esse exercitation pariatur incididunt cillum.",
+      "isArchived": false,
+      "archivedAt": null
     },
     {
-      "id": "8e145fac-f83c-4172-a860-dc9a14c5cb5e",
       "title": "Learn React",
-      "description": "Be a flexible developer, know more",
-      "dueDate": "2027-02-20",
-      "status": "todo",
-      "createdAt": "2026-10-10T11:56:19.576Z",
-      "updatedAt": null
+      "description": "123",
+      "dueDate": "2026-10-31",
+      "id": "fc1acb74-1223-47ed-a75c-a8a1dba7a14e",
+      "status": "in-progress",
+      "createdAt": "2026-10-12T13:26:14.745Z",
+      "updatedAt": "2026-10-12T13:26:18.508Z",
+      "isArchived": true,
+      "archivedAt": "2026-10-12T13:37:14.352Z"
     },
     {
-      "id": "01de024f-fafc-48f0-ab76-68386a87078f",
-      "title": "Drink coffee and relax",
-      "description": "Just relax :)",
-      "dueDate": "2026-10-24",
-      "status": "todo",
-      "createdAt": "2026-10-10T12:31:16.436Z",
-      "updatedAt": "2026-10-10T13:14:58.375Z"
+      "title": "Copy Learn React",
+      "description": "123",
+      "dueDate": "2026-10-31",
+      "id": "9e0e759c-8d53-41cd-b43e-41b234750784",
+      "status": "in-progress",
+      "createdAt": "2026-10-12T13:37:14.352Z",
+      "updatedAt": null,
+      "isArchived": false,
+      "archivedAt": null
     }
   ],
   "tasks": [
@@ -162,6 +178,26 @@
       "completedAt": null,
       "dueDate": "2027-03-03",
       "updatedAt": "2026-10-11T14:00:49.914Z"
+    },
+    {
+      "id": "7fb1f798-68d8-46b0-bb6d-e63acd1f1e33",
+      "title": "start from the basics",
+      "status": "todo",
+      "dueDate": "2026-10-31",
+      "projectId": "fc1acb74-1223-47ed-a75c-a8a1dba7a14e",
+      "createdAt": "2026-10-12T13:26:26.670Z",
+      "updatedAt": null,
+      "completedAt": null
+    },
+    {
+      "id": "aa3c5823-090b-4f4e-bbc3-97c2dd7b1f52",
+      "title": "master the required",
+      "status": "todo",
+      "dueDate": "2026-10-31",
+      "projectId": "fc1acb74-1223-47ed-a75c-a8a1dba7a14e",
+      "createdAt": "2026-10-12T13:26:40.174Z",
+      "updatedAt": null,
+      "completedAt": null
     }
   ]
 }

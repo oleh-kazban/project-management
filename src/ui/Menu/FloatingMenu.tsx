@@ -26,9 +26,8 @@ const FloatingMenu = <T extends string>({
 }: FloatingMenuProps<T>) => {
   const menuId = useId();
   const optionRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const { isOpen, close, toggle, popupPosition, containerRef, triggerRef, popupRef } = usePopup({
-    alignment,
-  });
+  const { isOpen, close, toggle, popupPosition, containerRef, triggerRef, popupRef } =
+    usePopup(alignment);
 
   const currentSelectedOption = options.find(option => option.value === value);
 

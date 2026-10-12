@@ -23,6 +23,22 @@ export const ErrorCodes = {
     title: 'Failed to update status',
     description: 'Could not change the project status.',
   },
+  PROJECT_ARCHIVE_FAILED: {
+    title: 'Failed to archive',
+    description: 'Could not archive the project with ID: ${id}.',
+  },
+  PROJECT_RESTORE_FAILED: {
+    title: 'Failed to restore',
+    description: 'Could not restore the project with ID: ${id}.',
+  },
+  PROJECT_DELETE_FAILED: {
+    title: 'Failed to delete project',
+    description: 'Could not delete the project with ID: ${id}.',
+  },
+  PROJECT_COPY_FAILED: {
+    title: 'Failed to duplicate the project',
+    description: 'Could not duplicate the project with ID: ${id}.',
+  },
   TASKS_LOAD_FAILED: {
     title: 'Failed to load tasks',
     description: 'Could not fetch tasks for the project with ID: ${projectId}.',
@@ -38,6 +54,10 @@ export const ErrorCodes = {
   TASK_DELETE_FAILED: {
     title: 'Failed to delete task',
     description: 'There was an error deleting the task with ID: ${taskId}.',
+  },
+  PROJECTS_SEARCH_FAILED: {
+    title: 'Search failed',
+    description: 'Could not fetch search results from the server.',
   },
 } as const;
 
