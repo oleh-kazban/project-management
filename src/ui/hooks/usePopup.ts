@@ -2,12 +2,10 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 export type Alignment = 'start' | 'end';
 type Placement = 'top' | 'bottom';
-type UsePopupOptions = {
-  alignment: Alignment;
-};
 type PopupPosition = {
   top: number;
   left: number;
+  width: number;
   maxHeight: number;
   placement: Placement;
 };
@@ -15,13 +13,16 @@ type PopupPosition = {
 const popupGap = 8;
 const viewportPadding = 8;
 
-export const usePopup = ({ alignment }: UsePopupOptions) => {
+export const usePopup = <TTrigger extends HTMLElement = HTMLButtonElement>(
+  alignment: Alignment,
+) => {
   const [isOpen, setIsOpen] = useState(false);
   const [popupPosition, setPopupPosition] = useState<PopupPosition | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
+  const triggerRef = useRef<TTrigger>(null);
   const popupRef = useRef<HTMLDivElement>(null);
 
+  const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);
   const toggle = () => setIsOpen(open => !open);
 
@@ -50,6 +51,7 @@ export const usePopup = ({ alignment }: UsePopupOptions) => {
       const fitsBelow = popupHeight <= availableBelow;
       const placement =
         fitsBelow || (!fitsAbove && availableBelow >= availableAbove) ? 'bottom' : 'top';
+      const width = triggerRect.width;
       const maxHeight = placement === 'bottom' ? availableBelow : availableAbove;
       const renderedHeight = Math.min(popupHeight, maxHeight);
       const preferredLeft =
@@ -63,14 +65,23 @@ export const usePopup = ({ alignment }: UsePopupOptions) => {
           ? triggerRect.bottom + popupGap
           : triggerRect.top - popupGap - renderedHeight;
 
-      setPopupPosition({ top, left, maxHeight, placement });
+      setPopupPosition({ top, left, width, maxHeight, placement });
     };
 
     updatePlacement();
     window.addEventListener('resize', updatePlacement);
     window.addEventListener('scroll', updatePlacement, true);
 
+    const resizeObserver = new ResizeObserver(() => {
+      updatePlacement();
+    });
+
+    if (triggerRef.current) {
+      resizeObserver.observe(triggerRef.current);
+    }
+
     return () => {
+      resizeObserver.disconnect();
       window.removeEventListener('resize', updatePlacement);
       window.removeEventListener('scroll', updatePlacement, true);
     };
@@ -109,11 +120,12 @@ export const usePopup = ({ alignment }: UsePopupOptions) => {
 
   return {
     isOpen,
+    open,
     close,
     toggle,
-    popupPosition: popupPosition,
+    popupPosition,
     containerRef,
     triggerRef,
-    popupRef: popupRef,
+    popupRef,
   };
 };

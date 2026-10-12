@@ -43,13 +43,15 @@ const ProjectForm = () => {
         : `${import.meta.env.VITE_API_URL}/projects`;
       const method = isEditing ? 'PUT' : 'POST';
       const projectData: Project = isEditing
-        ? { ...payload, updatedAt: new Date().toISOString() }
+        ? { ...payload, updatedAt: new Date().toISOString(), isArchived: false, archivedAt: null }
         : {
             ...payload,
             id: crypto.randomUUID(),
             status: 'todo',
             createdAt: new Date().toISOString(),
             updatedAt: null,
+            isArchived: false,
+            archivedAt: null,
           };
 
       const response = await fetch(url, {

@@ -1,13 +1,14 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, KeyboardEvent, useState } from 'react';
 
 import type { Task } from '@pm/types';
 
 type CreateTaskProps = {
   onAddTask: (_task: Omit<Task, 'projectId' | 'completedAt' | 'createdAt' | 'updatedAt'>) => void;
+  onCancel: () => void;
   dueDate: string;
 };
 
-const CreateTask = ({ dueDate, onAddTask }: CreateTaskProps) => {
+const CreateTask = ({ dueDate, onAddTask, onCancel }: CreateTaskProps) => {
   const [title, setTitle] = useState('');
   const handleAddTask = (event: FormEvent) => {
     event.preventDefault();
@@ -24,7 +25,12 @@ const CreateTask = ({ dueDate, onAddTask }: CreateTaskProps) => {
     });
     setTitle('');
   };
-  const handleTitleChange = (value: string) => setTitle(() => value);
+  const handleTitleChange = (value: string) => setTitle(value);
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      onCancel();
+    }
+  };
 
   return (
     <form
@@ -36,6 +42,7 @@ const CreateTask = ({ dueDate, onAddTask }: CreateTaskProps) => {
       </label>
       <input
         onChange={event => handleTitleChange(event.target.value)}
+        onKeyDown={handleKeyDown}
         value={title}
         id="new-task"
         type="text"

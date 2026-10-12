@@ -2,8 +2,7 @@ import { type KeyboardEvent, useRef, useState } from 'react';
 
 import { statusOptions } from '@pm/constants';
 import type { Task } from '@pm/types';
-import { Confirmation } from '@pm/ui';
-import { FloatingMenu } from '@pm/ui';
+import { Confirmation, FloatingMenu } from '@pm/ui';
 
 import { formatDateOnly } from '../../utils/date-formatter';
 

@@ -45,6 +45,9 @@ const TaskList = ({ projectId, projectDueDate }: TaskListProps) => {
   const handleTaskRemove = (taskId: Task['id']) => {
     deleteTaskMutation.mutate(taskId);
   };
+  const handleOnCancel = () => {
+    setShowAddTask(false);
+  };
 
   const { data } = useQuery({
     queryKey: ['tasks', projectId],
@@ -155,7 +158,9 @@ const TaskList = ({ projectId, projectDueDate }: TaskListProps) => {
         </button>
       </div>
 
-      {showAddTask && <CreateTask dueDate="2026-12-06" onAddTask={handleAddTask} />}
+      {showAddTask && (
+        <CreateTask dueDate="2026-12-06" onAddTask={handleAddTask} onCancel={handleOnCancel} />
+      )}
 
       <ul className="mt-5 divide-y divide-default/[0.07]">
         {data?.tasks.map(task => (

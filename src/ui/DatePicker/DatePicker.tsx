@@ -37,9 +37,8 @@ const DatePicker = ({
   onChange,
 }: DatePickerProps) => {
   const popupId = useId();
-  const { isOpen, close, toggle, popupPosition, containerRef, triggerRef, popupRef } = usePopup({
-    alignment,
-  });
+  const { isOpen, close, toggle, popupPosition, containerRef, triggerRef, popupRef } =
+    usePopup(alignment);
   const isPositioned = popupPosition !== null;
   const selected = value ? parseDateOnly(value) : undefined;
   const startDate = minDate ? parseDateOnly(minDate) : undefined;

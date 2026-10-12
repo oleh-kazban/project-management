@@ -26,7 +26,14 @@ const Motivator = () => {
   const quoteIndex = (getSeed(location.key) + mutationCount) % motivationalQuotes.length;
   const phrase = motivationalQuotes[quoteIndex];
 
-  return <p className="mt-5 text-center text-xs text-foreground-faint">{phrase}</p>;
+  return (
+    <p
+      key={`${location.key}-${mutationCount}`}
+      className="animate-fade-in mt-5 text-center text-xs text-foreground-faint"
+    >
+      {phrase}
+    </p>
+  );
 };
 
 export default Motivator;

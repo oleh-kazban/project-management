@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import type { ProjectMetricData } from '@pm/types';
-import type { Task } from '@pm/types';
+import type { ProjectMetricData, Task } from '@pm/types';
 
 import { getDaysRemaining } from '../../utils/date-utils';
 

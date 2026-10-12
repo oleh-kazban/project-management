@@ -85,6 +85,7 @@ export default [
   {
     files: ['**/*.{js,ts,tsx}'],
     rules: {
+      'no-duplicate-imports': 'error',
       'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
       'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       'eol-last': ['error', 'always'],
