@@ -23,11 +23,18 @@ Protect primary branch (`master` or `main`):
 - [x] **Require conversation resolution before merging**: Enforces that all review comments must be resolved before merge.
 - [x] **Require status checks to pass before merging**:
   - [x] **Require branches to be up to date before merging**: Ensures PR code is tested against latest base branch HEAD.
-  - **Required status checks to select** (from PR Validation workflow):
+  - **Explicitly search and add required status checks** (from `PR Validation` workflow):
     - `format`
     - `lint`
     - `build`
     - `test`
+
+> [!TIP] > **Preventing the Initial False-Green "Mergeable" State:**  
+> If you enable _Require status checks_ but do not explicitly search and select each check from the list, GitHub treats the required set as empty (`0 required checks`). This causes a brand-new PR to briefly show a green **"Squash and merge"** button until GitHub Actions runners report their `pending` status seconds later.
+>
+> Once jobs are explicitly added as **Required**, GitHub marks them as `Expected — Waiting for status to be reported` from the exact millisecond the PR is created, keeping the merge button **locked and disabled** until all checks pass.
+>
+> _Alternative:_ Open PRs as a **Draft** (`Create draft pull request`) to keep the merge button locked while actively iterating.
 
 ---
 
