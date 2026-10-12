@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 
-const ProjectNotFound = () => {
+const ProjectNotFoundState = () => {
   return (
     <div
       role="alert"
@@ -33,4 +33,4 @@ const ProjectNotFound = () => {
   );
 };
 
-export default ProjectNotFound;
+export default ProjectNotFoundState;

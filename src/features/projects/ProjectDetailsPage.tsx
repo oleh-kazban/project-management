@@ -4,11 +4,11 @@ import { useQuery } from '@tanstack/react-query';
 
 import { Loader } from '@pm/ui';
 
-import ProjectContent from './ProjectContent';
-import ProjectNotFound from './ProjectNotFound';
-import ProjectNotSelected from './ProjectNotSelected';
+import ProjectNotFoundState from './ProjectNotFoundState';
+import ProjectNotSelectedState from './ProjectNotSelectedState';
+import ProjectSplitPane from './ProjectSplitPane';
 
-const ProjectView = () => {
+const ProjectDetailsPage = () => {
   const { projectId } = useParams();
 
   const { data, isLoading, error } = useQuery({
@@ -33,16 +33,16 @@ const ProjectView = () => {
 
   if (!projectId) {
     ariaLabel = 'project-not-selected';
-    component = <ProjectNotSelected />;
+    component = <ProjectNotSelectedState />;
   } else if (isLoading) {
     ariaLabel = 'project-loading';
     component = <Loader />;
   } else if (error?.message === 'project-not-found' || (!isLoading && !data)) {
     ariaLabel = 'project-not-found';
-    component = <ProjectNotFound />;
+    component = <ProjectNotFoundState />;
   } else {
     ariaLabel = 'project-details';
-    component = <ProjectContent key={data.project.id} projectData={data.project} />;
+    component = <ProjectSplitPane key={data.project.id} projectData={data.project} />;
   }
 
   return (
@@ -55,4 +55,4 @@ const ProjectView = () => {
   );
 };
 
-export default ProjectView;
+export default ProjectDetailsPage;

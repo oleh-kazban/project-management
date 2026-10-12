@@ -13,7 +13,7 @@ type ProjectData = {
   dueDate: string | undefined;
 };
 
-const ProjectForm = () => {
+const ProjectFormPage = () => {
   const { projectId } = useParams();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -192,4 +192,4 @@ const ProjectForm = () => {
   );
 };
 
-export default ProjectForm;
+export default ProjectFormPage;

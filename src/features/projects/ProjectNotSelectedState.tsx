@@ -1,4 +1,4 @@
-const ProjectNotSelected = () => {
+const ProjectNotSelectedState = () => {
   return (
     <div
       role="status"
@@ -25,4 +25,4 @@ const ProjectNotSelected = () => {
   );
 };
 
-export default ProjectNotSelected;
+export default ProjectNotSelectedState;
