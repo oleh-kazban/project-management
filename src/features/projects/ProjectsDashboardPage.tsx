@@ -1,13 +1,13 @@
 import ProjectDashboardGreeting from './ProjectDashboardGreeting';
-import ProjectView from './ProjectView';
+import ProjectDetailsPage from './ProjectDetailsPage';
 
-const ProjectsDashboard = () => {
+const ProjectsDashboardPage = () => {
   return (
     <>
       <ProjectDashboardGreeting username="Jordan" />
-      <ProjectView />
+      <ProjectDetailsPage />
     </>
   );
 };
 
-export default ProjectsDashboard;
+export default ProjectsDashboardPage;

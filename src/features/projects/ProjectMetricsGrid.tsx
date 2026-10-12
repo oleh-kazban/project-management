@@ -4,14 +4,14 @@ import type { ProjectMetricData, Task } from '@pm/types';
 
 import { getDaysRemaining } from '../../utils/date-utils';
 
-import ProjectMetric from './ProjectMetric';
+import ProjectMetricCard from './ProjectMetricCard';
 
-type ProjectMetricsProps = {
+type ProjectMetricsGridProps = {
   projectId: string;
   dueDate: string;
 };
 
-const ProjectMetrics = ({ projectId, dueDate }: ProjectMetricsProps) => {
+const ProjectMetricsGrid = ({ projectId, dueDate }: ProjectMetricsGridProps) => {
   const { data } = useQuery({
     queryKey: ['tasks', projectId],
     enabled: true,
@@ -65,10 +65,10 @@ const ProjectMetrics = ({ projectId, dueDate }: ProjectMetricsProps) => {
   return (
     <div className="mt-7 grid gap-3 sm:grid-cols-3 xl:grid-cols-1 2xl:grid-cols-3">
       {metricsData.map(metric => (
-        <ProjectMetric metric={metric} key={metric.id} />
+        <ProjectMetricCard metric={metric} key={metric.id} />
       ))}
     </div>
   );
 };
 
-export default ProjectMetrics;
+export default ProjectMetricsGrid;

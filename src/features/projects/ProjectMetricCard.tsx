@@ -1,10 +1,10 @@
 import type { ProjectMetricData } from '@pm/types';
 
-type ProjectMetricProps = {
+type ProjectMetricCardProps = {
   metric: ProjectMetricData;
 };
 
-const ProjectMetric = ({ metric }: ProjectMetricProps) => {
+const ProjectMetricCard = ({ metric }: ProjectMetricCardProps) => {
   const { title, type, value } = metric;
 
   return (
@@ -36,4 +36,4 @@ const ProjectMetric = ({ metric }: ProjectMetricProps) => {
   );
 };
 
-export default ProjectMetric;
+export default ProjectMetricCard;

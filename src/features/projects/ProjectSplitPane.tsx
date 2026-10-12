@@ -2,21 +2,21 @@ import { Project } from '@pm/types';
 
 import TaskList from '../tasks/TasksList';
 
-import ProjectDetails from './ProjectDetails';
+import ProjectInfoPane from './ProjectInfoPane';
 
-type ProjectContentProps = {
+type ProjectSplitPaneProps = {
   projectData: Project;
 };
 
-const ProjectContent = ({ projectData }: ProjectContentProps) => {
+const ProjectSplitPane = ({ projectData }: ProjectSplitPaneProps) => {
   const { id, dueDate } = projectData;
 
   return (
     <>
-      <ProjectDetails project={projectData} />
+      <ProjectInfoPane project={projectData} />
       <TaskList projectId={id} projectDueDate={dueDate} />
     </>
   );
 };
 
-export default ProjectContent;
+export default ProjectSplitPane;

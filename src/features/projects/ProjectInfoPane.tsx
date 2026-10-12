@@ -8,13 +8,13 @@ import type { Project } from '@pm/types';
 import { Confirmation, DotsFloatingMenu, DotsFloatingMenuOption, FloatingMenu } from '@pm/ui';
 import { appToast, formatDateOnly, getUpdateDateLabel } from '@pm/utils';
 
-import ProjectMetrics from './ProjectMetrics';
+import ProjectMetricsGrid from './ProjectMetricsGrid';
 
-type ProjectProps = {
+type ProjectInfoPaneProps = {
   project: Project;
 };
 
-const ProjectDetails = ({ project }: ProjectProps) => {
+const ProjectInfoPane = ({ project }: ProjectInfoPaneProps) => {
   const { id, title, description, dueDate, updatedAt, status, isArchived, archivedAt, createdAt } =
     project;
   const navigate = useNavigate();
@@ -233,7 +233,7 @@ const ProjectDetails = ({ project }: ProjectProps) => {
         </h2>
         <p className="mt-3 text-sm leading-6 text-foreground-muted sm:text-base">{description}</p>
       </div>
-      <ProjectMetrics dueDate={project.dueDate} projectId={project.id} />
+      <ProjectMetricsGrid dueDate={project.dueDate} projectId={project.id} />
       {isDeleteConfirmationOpen && (
         <Confirmation
           title="Delete project?"
@@ -264,4 +264,4 @@ const ProjectDetails = ({ project }: ProjectProps) => {
   );
 };
 
-export default ProjectDetails;
+export default ProjectInfoPane;
