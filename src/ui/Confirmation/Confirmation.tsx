@@ -1,4 +1,4 @@
-import { type MouseEvent, type SyntheticEvent, useEffect, useId, useRef } from 'react';
+import { type MouseEvent, type SyntheticEvent, useEffect, useId, useRef, useState } from 'react';
 
 type ConfirmationProps = {
   title: string;
@@ -6,6 +6,7 @@ type ConfirmationProps = {
   cancelLabel?: string;
   confirmLabel?: string;
   confirmClassName?: string;
+  timerValue?: number;
   onCancel: () => void;
   onConfirm: () => void;
 };
@@ -18,12 +19,25 @@ const Confirmation = ({
   cancelLabel = 'Cancel',
   confirmLabel = 'Confirm',
   confirmClassName,
+  timerValue = 0,
   onCancel,
   onConfirm,
 }: ConfirmationProps) => {
+  const [remainingTime, setRemainingTime] = useState(timerValue);
+  const isConfirmDisabled = remainingTime > 0;
   const dialog = useRef<HTMLDialogElement>(null);
   const titleId = useId();
   const descriptionId = useId();
+
+  useEffect(() => {
+    if (remainingTime <= 0) return;
+
+    const interval = setInterval(() => {
+      setRemainingTime(prev => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [remainingTime]);
 
   const handleClose = (event: SyntheticEvent<HTMLDialogElement>) => {
     if (event.currentTarget.returnValue === 'confirm') {
@@ -76,8 +90,9 @@ const Confirmation = ({
             type="button"
             onClick={() => dialog.current?.close('confirm')}
             className={`rounded-lg px-4 py-2 text-sm font-semibold transition ${confirmClassName ?? defaultConfirmClassName}`}
+            disabled={isConfirmDisabled}
           >
-            {confirmLabel}
+            {isConfirmDisabled ? `${confirmLabel} (${remainingTime})` : confirmLabel}
           </button>
         </div>
       </div>

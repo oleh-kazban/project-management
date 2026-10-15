@@ -245,6 +245,7 @@ const ProjectInfoPane = ({ project }: ProjectInfoPaneProps) => {
             onProjectDelete();
           }}
           onCancel={() => setIsDeleteConfirmationOpen(false)}
+          timerValue={30}
         />
       )}
       {isArchiveConfirmationOpen && (
@@ -258,6 +259,7 @@ const ProjectInfoPane = ({ project }: ProjectInfoPaneProps) => {
             onProjectArchive();
           }}
           onCancel={() => setIsArchiveConfirmationOpen(false)}
+          timerValue={30}
         />
       )}
     </div>
