@@ -53,13 +53,13 @@ const ProjectInfoPane = ({ project }: ProjectInfoPaneProps) => {
     { label: 'Duplicate', onSelect: handleDuplicate },
     project.isArchived
       ? {
-          label: 'Restore',
-          onSelect: handleRestore,
-        }
+        label: 'Restore',
+        onSelect: handleRestore,
+      }
       : {
-          label: 'Archive',
-          onSelect: handleArchive,
-        },
+        label: 'Archive',
+        onSelect: handleArchive,
+      },
     {
       label: 'Delete',
       onSelect: handleDelete,
@@ -245,6 +245,7 @@ const ProjectInfoPane = ({ project }: ProjectInfoPaneProps) => {
             onProjectDelete();
           }}
           onCancel={() => setIsDeleteConfirmationOpen(false)}
+          timerValue={30}
         />
       )}
       {isArchiveConfirmationOpen && (
@@ -258,6 +259,7 @@ const ProjectInfoPane = ({ project }: ProjectInfoPaneProps) => {
             onProjectArchive();
           }}
           onCancel={() => setIsArchiveConfirmationOpen(false)}
+          timerValue={30}
         />
       )}
     </div>

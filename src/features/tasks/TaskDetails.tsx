@@ -112,6 +112,7 @@ const TaskDetails = ({ task, onStatusChange, onTitleChange, onTaskRemove }: Task
             onTaskRemove(id);
           }}
           onCancel={() => setIsConfirmationOpen(false)}
+          timerValue={30}
         />
       )}
     </>
