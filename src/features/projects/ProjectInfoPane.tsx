@@ -53,13 +53,13 @@ const ProjectInfoPane = ({ project }: ProjectInfoPaneProps) => {
     { label: 'Duplicate', onSelect: handleDuplicate },
     project.isArchived
       ? {
-        label: 'Restore',
-        onSelect: handleRestore,
-      }
+          label: 'Restore',
+          onSelect: handleRestore,
+        }
       : {
-        label: 'Archive',
-        onSelect: handleArchive,
-      },
+          label: 'Archive',
+          onSelect: handleArchive,
+        },
     {
       label: 'Delete',
       onSelect: handleDelete,
